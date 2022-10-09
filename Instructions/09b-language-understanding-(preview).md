@@ -6,7 +6,7 @@ lab:
 
 # <a name="create-a-language-understanding-model-with-the-language-service-preview"></a>언어 서비스를 사용하여 언어 이해 모델 만들기(미리 보기)
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The conversational language understanding feature of the Language service is currently in preview, and subject to change. In some cases, model training may fail - if this happens, try again.  
+> **참고**: 언어 서비스의 대화 언어 이해 기능은 현재 미리 보기 상태이며 변경될 수 있습니다. 경우에 따라 모델 학습이 실패할 수 있습니다. 이 경우 다시 시도하세요.  
 
 언어 서비스를 사용하면 애플리케이션이 사용자의 자연어 입력을 해석하고, 사용자 의도(달성하려는 것)를 예측하고, 의도를 적용해야 하는 엔터티를 식별하는 데 사용할 수 있는 대화 언어 이해 모델을 정의할 수 있습니다.  
 
@@ -16,11 +16,11 @@ lab:
 
 이러한 입력 유형의 예가 발화(사용자가 말하거나 입력하는 내용)입니다. 이 발화에서 원하는 의도는 특정 위치(엔터티), 즉 여기서는 런던의 시간을 확인하는 것입니다.  
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The task of a conversational language model is to predict the user's intent and identify any entities to which the intent applies. It is <bpt id="p1">&lt;u&gt;</bpt>not<ept id="p1">&lt;/u&gt;</ept> the job of a conversational language model to actually perform the actions required to satisfy the intent. For example, a clock application can use a conversational language model to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
+> **참고**: 대화 언어 모델의 작업은 사용자 의도를 예측하고 해당 의도가 적용되는 엔터티를 식별하는 것입니다. 의도를 충족하는 데 필요한 작업을 실제로 수행하는 것은 대화 언어 모델의 작업이 <u>아닙니다</u>. 예를 들어, 시계 애플리케이션은 대화 언어 모델을 사용하여 사용자가 런던의 시간을 확인하려 한다는 것을 파악할 수는 있습니다. 그러나 이처럼 의도가 파악되고 나면 클라이언트 애플리케이션 자체가 논리를 구현해 정확한 시간을 확인하여 사용자에게 표시해야 합니다.
 
 ## <a name="create-a-language-service-resource"></a>언어 서비스 리소스 만들기
 
-To create a conversational language model, you need a <bpt id="p1">**</bpt>Language service<ept id="p1">**</ept> resource in a supported region. At the time of writing, only the West US 2 and West Europe regions are supported.
+대화 언어 모델을 만들려면 지원되는 지역에서 **언어 서비스** 리소스가 필요합니다. 작성 당시에는 미국 서부 2 및 서유럽 지역만 지원됩니다.
 
 1. `https://portal.azure.com`의 Azure Portal을 열고 Azure 구독과 연관된 Microsoft 계정을 사용하여 로그인합니다.
 2. **&#65291;리소스 만들기** 단추를 선택하고, 언어를 검색하고, 다음 설정을 사용하여 **언어 서비스** 리소스를 만듭니다.
@@ -118,7 +118,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 4. 학습이 완료되면(몇 분 정도 걸릴 수 있음) 작업 **상태**가 **학습 성공**으로 변경됩니다.
 
-5. **참고**: 언어 서비스의 대화 언어 이해 기능은 현재 미리 보기 상태이며 변경될 수 있습니다.
+5. **모델 세부 정보 보기** 페이지를 선택한 다음, **Clock** 모델을 선택합니다. 전체 및 의도별 평가 메트릭(정밀도, 재현율, F1 점수)과 학습 시 수행된 평가에서 생성된 혼동 행렬을 검토합니다(샘플 발화 수가 적기 때문에 일부 의도가 결과에 포함되지 않을 수 있음).   
 
     >**참고**: 평가 메트릭에 대한 자세한 내용은 [설명서](https://docs.microsoft.com/azure/cognitive-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)를 참조하세요.
 
@@ -126,7 +126,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 5. **배포 추가** 대화 상자에서 **새 배포 이름 만들기**를 선택한 다음, **production**을 입력합니다.
 
-5. 경우에 따라 모델 학습이 실패할 수 있습니다. 이 경우 다시 시도하세요.
+5. **Clock** 모델을 선택하고 **제출**을 클릭합니다. 이 배포는 약간 시간이 걸릴 수 있습니다.
 
 6. 모델이 배포된 경우 **모델 테스트** 페이지에서 **Clock** 모델을 선택합니다.
 
@@ -136,7 +136,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
     `what's the time now?`
 
-    Review the result that is returned, noting that it includes the predicted intent (which should be <bpt id="p1">**</bpt>GetTime<ept id="p1">**</ept>) and a confidence score that indicates the probability the model calculated for the predicted intent. The JSON tab shows the comparative confidence for each potential intent (the one with the highest confidence score is the predicted intent)
+    반환되는 결과를 검토하여 예측한 의도(**GetTime**이어야 함) 및 모델이 예측한 의도를 대상으로 계산한 가능성을 나타내는 신뢰도 점수가 포함되어 있음을 확인합니다. JSON 탭은 각 잠재적 의도에 대한 비교 신뢰도를 표시합니다(신뢰도 점수가 가장 높은 것이 예측된 의도임).
 
 8. 텍스트 상자를 지우고 다음 텍스트로 다른 테스트를 실행합니다.
 
@@ -152,7 +152,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 ## <a name="add-entities"></a>엔터티 추가
 
-So far you've defined some simple utterances that map to intents. Most real applications include more complex utterances from which specific data entities must be extracted to get more context for the intent.
+지금까지 의도에 매핑되는 간단한 발화 몇 가지를 정의했습니다. 대다수 실제 애플리케이션에는 더 복잡한 발화가 포함됩니다. 이러한 발화에서 구체적인 데이터 엔터티를 추출하여 의도 예측을 위한 추가 컨텍스트를 수집해야 합니다.
 
 ### <a name="add-a-learned-entity"></a>학습된 엔터티를 추가합니다.
 
@@ -160,7 +160,7 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio에서 **스키마 빌드** 페이지로 돌아가고 **엔터티** 탭에서 **&#65291; 추가**를 선택하여 새 엔터티를 추가합니다.
 
-2. In the <bpt id="p1">**</bpt>Add an entity<ept id="p1">**</ept> dialog box, enter the entity name <bpt id="p2">**</bpt>Location<ept id="p2">**</ept> and ensure that <bpt id="p3">**</bpt>Learned<ept id="p3">**</ept> is selected. Then click <bpt id="p1">**</bpt>Add entity<ept id="p1">**</ept>.
+2. **엔터티 추가** 대화 상자에서 엔터티 이름 **Location**을 입력하고 **Learned**가 선택되었는지 확인합니다. 그런 다음, **엔터티 추가**를 클릭합니다.
 
 3. **Location** 엔터티를 만든 후 **스키마 빌드** 페이지로 돌아가고 **의도** 탭에서 **GetTime** 의도를 선택합니다.
 
@@ -190,9 +190,9 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio에서 **스키마 빌드** 페이지로 돌아가고 **엔터티** 탭에서 **&#65291; 추가**를 선택하여 새 엔터티를 추가합니다.
 
-2. In the <bpt id="p1">**</bpt>Add an entity<ept id="p1">**</ept> dialog box, enter the entity name <bpt id="p2">**</bpt>Weekday<ept id="p2">**</ept> and select the <bpt id="p3">**</bpt>List<ept id="p3">**</ept> entity type. Then click <bpt id="p1">**</bpt>Add entity<ept id="p1">**</ept>.
+2. **엔터티 추가** 대화 상자에서 엔터티 이름 **Weekday**를 입력하고 **List** 엔터티 형식을 선택합니다. 그런 다음, **엔터티 추가**를 클릭합니다.
 
-3. On the page for the <bpt id="p1">**</bpt>Weekday<ept id="p1">**</ept> entity, in the <bpt id="p2">**</bpt>List<ept id="p2">**</ept> section, click <bpt id="p3">**</bpt>&amp;#65291; Add new list<ept id="p3">**</ept>. Then enter the following value and synonym and click <bpt id="p1">**</bpt>Save<ept id="p1">**</ept>:
+3. **Weekday** 엔터티 페이지의 **목록** 섹션에서 **&#65291; 새 목록 추가**를 클릭합니다. 그런 다음, 다음 값과 동의어를 입력하고 **저장**을 클릭합니다.
 
     | 목록 키 | 동의어|
     |-------------------|---------|
@@ -237,7 +237,7 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio에서 **스키마 빌드** 페이지로 돌아가고 **엔터티** 탭에서 **&#65291; 추가**를 선택하여 새 엔터티를 추가합니다.
 
-2. **참고**: 대화 언어 모델의 작업은 사용자 의도를 예측하고 해당 의도가 적용되는 엔터티를 식별하는 것입니다.
+2. **엔터티 추가** 대화 상자에서 엔터티 이름 **Date**를 입력하고 **Prebuilt** 엔터티 형식을 선택합니다. 그런 다음, **엔터티 추가**를 클릭합니다.
 
 3. **Date** 엔터티 페이지의 **Prebuilt** 섹션에서 **&#65291; 새 미리 빌드된 항목 추가**를 클릭합니다.
 
@@ -265,17 +265,17 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. **모델 학습** 페이지에서 **학습 작업 시작**을 선택합니다.
 
-1. 의도를 충족하는 데 필요한 작업을 실제로 수행하는 것은 대화 언어 모델의 작업이 <u>아닙니다</u>.
+1. **학습 작업 시작** 대화 상자에서 기존 모델을 덮어쓰는 옵션을 선택하고 **Clock** 모델을 지정합니다. 학습 시 평가를 실행하는 옵션이 선택되어 있는지 확인하고 **학습**을 클릭하여 모델을 학습시킵니다. 기존 모델을 덮어쓸지 확인합니다.
 
 2. 학습이 완료되면 작업 **상태**가 **학습 성공**으로 업데이트됩니다. 
 
-2. 예를 들어, 시계 애플리케이션은 대화 언어 모델을 사용하여 사용자가 런던의 시간을 확인하려 한다는 것을 파악할 수는 있습니다. 그러나 이처럼 의도가 파악되고 나면 클라이언트 애플리케이션 자체가 논리를 구현해 정확한 시간을 확인하여 사용자에게 표시해야 합니다.
+2. **모델 세부 정보 보기** 페이지를 선택한 다음, **Clock** 모델을 선택합니다. 전체, 엔터티별 및 의도별 평가 메트릭(정밀도, 재현율, F1 점수)과 학습 시 수행된 평가에서 생성된 혼동 행렬을 검토합니다(샘플 발화 수가 적기 때문에 일부 의도가 결과에 포함되지 않을 수 있음).   
 
 3. **모델 배포** 페이지에서 **배포 추가**를 선택합니다.
 
 3. **모델 배포** 대화 상자에서 **기존 배포 이름 재정의**를 선택한 다음, **production**을 선택합니다.
 
-3. Select the <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept> model and then click <bpt id="p2">**</bpt>Submit<ept id="p2">**</ept> to deploy it. This may take some time.
+3. **Clock** 모델을 선택한 다음, **제출**을 클릭하여 배포합니다. 이 작업에는 약간의 시간이 걸릴 수 있습니다.
 
 4. 모델이 배포되면 **모델 테스트** 페이지에서 **Clock** 모델을 선택하고, **production** 배포를 선택한 후, 다음 텍스트로 테스트합니다.
 
@@ -297,9 +297,9 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 ## <a name="use-the-model-from-a-client-app"></a>클라이언트 앱에서 모델 사용
 
-In a real project, you'd iteratively refine intents and entities, retrain, and retest until you are satisfied with the predictive performance. Then, when you've tested it and are satisfied with its predictive performance, you can use it in a client app by calling its REST interface. In this exercise, you'll use the <bpt id="p1">*</bpt>curl<ept id="p1">*</ept> utility to call the REST endpoint for your model.
+실제 프로젝트에서는 만족할 만한 예측 성능이 제공될 때까지 의도와 엔터티를 여러 번 미세 조정하고 모델을 다시 학습시켜 테스트를 다시 진행합니다. 그런 다음, 모델을 테스트하고 예측 성능에 만족하는 경우 REST 인터페이스를 호출하여 클라이언트 앱에서 사용할 수 있습니다. 이 연습에서는 *curl* 유틸리티를 사용하여 모델에 대한 REST 엔드포인트를 호출합니다.
 
-1. 대화 언어 모델을 만들려면 지원되는 지역에서 **언어 서비스** 리소스가 필요합니다.
+1. Language Studio의 **모델 배포** 페이지에서 **Clock** 모델을 선택합니다. 그런 다음, **예측 URL 가져오기**를 클릭합니다.
 
 2. **예측 URL 가져오기** 대화 상자에서 예측 엔드포인트의 URL은 엔드포인트에 HTTP POST 요청을 제출하여 헤더에 언어 리소스의 키를 지정하고 요청 데이터에 쿼리와 언어를 포함하는 **curl** 명령으로 구성된 샘플 요청과 함께 표시됩니다.
 
@@ -339,9 +339,9 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
 
 ## <a name="export-the-project"></a>프로젝트 내보내기
 
-작성 당시에는 미국 서부 2 및 서유럽 지역만 지원됩니다.
+Language Studio를 사용하여 언어 이해 모델을 개발하고 테스트할 수 있지만, DevOps에 대한 소프트웨어 개발 프로세스에서는 CI/CD(연속 통합 및 지속적인 업데이트) 파이프라인에 포함될 수 있는 프로젝트의 원본 제어 정의를 유지 관리해야 합니다. 코드 스크립트에서 언어 REST API를 사용하여 모델을 만들고 학습시킬 수 있지만, 더 간단한 방법은 포털을 사용하여 모델 스키마를 만들고 언어 서비스 인스턴스에서 가져오고 다시 학습시킬 수 있는 *.json* 파일로 해당 모델 스키마를 내보내는 것입니다. 이 접근 방식을 사용하면 모델에 대한 이식성과 재현 가능성을 유지 관리하면서 Language Studio 시각적 인터페이스의 생산성을 활용할 수 있습니다.
 
-1. In Language Studio, on the <bpt id="p1">**</bpt>Projects<ept id="p1">**</ept> page, select the <bpt id="p2">**</bpt>Clock<ept id="p2">**</ept> project. Don't click <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept>, select the circle icon to select the Clock project.
+1. Language Studio의 **프로젝트** 페이지에서 **Clock** 프로젝트를 선택합니다. **Clock**을 클릭하지 말고 원 모양 아이콘을 선택하여 Clock 프로젝트를 선택합니다.
 
 2. **&#x2913; 내보내기** 단추를 클릭합니다.
 
