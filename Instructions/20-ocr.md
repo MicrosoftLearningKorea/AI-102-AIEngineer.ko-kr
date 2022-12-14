@@ -6,7 +6,7 @@ lab:
 
 # <a name="read-text-in-images"></a>이미지에서 텍스트 읽기
 
-Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The <bpt id="p1">**</bpt>Computer Vision<ept id="p1">**</ept> service provides two APIs for reading text, which you'll explore in this exercise.
+OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는 Computer Vision 하위 서비스입니다. **Computer Vision** 서비스에서는 텍스트 읽기용 API 2개를 제공합니다. 이 연습에서는 해당 API를 살펴봅니다.
 
 ## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
 
@@ -32,16 +32,16 @@ Optical character recognition (OCR) is a subset of computer vision that deals wi
     - **가격 책정 계층**: 표준 S0
 3. 필요한 확인란을 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDK 사용 준비
 
 이 연습에서는 Computer Vision SDK를 사용해 텍스트를 읽는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
 1. Visual Studio Code의 **탐색기** 창에서 **20-ocr** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
-2. OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는 Computer Vision 하위 서비스입니다.
+2. **read-text** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Computer Vision SDK 패키지를 설치합니다.
 
 **C#**
 
@@ -59,13 +59,13 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    **Computer Vision** 서비스에서는 텍스트 읽기용 API 2개를 제공합니다. 이 연습에서는 해당 API를 살펴봅니다.
+    구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
 4. **read-text** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#** : Program.cs
     - **Python**: read-text.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Computer Vision SDK:
+    코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
 **C#**
 
@@ -84,7 +84,7 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-5. In the code file for your client application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that the code to load the configuration settings has been provided. Then find the comment <bpt id="p1">**</bpt>Authenticate Computer Vision client<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to create and authenticate a Computer Vision client object:
+5. 클라이언트 애플리케이션용 코드 파일의 **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Computer Vision 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision 클라이언트 개체를 만들고 인증합니다.
 
 **C#**
 
@@ -107,9 +107,9 @@ cv_client = ComputerVisionClient(cog_endpoint, credential)
     
 ## <a name="use-the-ocr-api"></a>OCR API 사용
 
-The <bpt id="p1">**</bpt>OCR<ept id="p1">**</ept> API is an optical character recognition API that is optimized for reading small to medium amounts of printed text in <bpt id="p2">*</bpt>.jpg<ept id="p2">*</ept>, <bpt id="p3">*</bpt>.png<ept id="p3">*</ept>, <bpt id="p4">*</bpt>.gif<ept id="p4">*</ept>, and <bpt id="p5">*</bpt>.bmp<ept id="p5">*</ept> format images. It supports a wide range of languages and in addition to reading text in the image it can determine the orientation of each text region and return information about the rotation angle of the text in relation to the image
+**OCR** API, 즉 광학 인식 API는 *.jpg*, *.png*, *.gif* 및 *.bmp* 형식 이미지에 인쇄되어 있는 소량~중간 정도의 텍스트를 읽는 작업용으로 최적화되어 있습니다. 이 API는 광범위한 언어를 지원하며, 이미지의 텍스트를 읽을 수 있을 뿐 아니라 각 텍스트 영역의 방향을 확인하여 이미지 기준 텍스트 회전 각도 관련 정보도 반환할 수 있습니다.
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>1<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextOcr<ept id="p1">**</ept> function, passing the path to an image file.
+1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **1**을 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextOcr** 함수를 호출하여 이미지 파일의 경로를 전달합니다.
 2. **read-text/images** 폴더에서 **Lincoln.jpg**를 열어 코드가 처리할 이미지를 표시합니다.
 3. 코드 파일로 돌아와서 **GetTextOcr** 함수를 찾은 다음 콘솔에 메시지를 인쇄하는 기존 코드 아래에 다음 코드를 추가합니다.
 
@@ -186,7 +186,7 @@ fig.savefig(outputfile)
 print('Results saved in', outputfile)
 ```
 
-4. Examine the code you added to the <bpt id="p1">**</bpt>GetTextOcr<ept id="p1">**</ept> function. It detects regions of printed text from an image file, and for each region it extracts the lines of text and highlights there position on the image. It then extracts the words in each line and prints them.
+4. **GetTextOcr** 함수에 추가한 코드를 살펴봅니다. 이 코드는 이미지 파일에서 인쇄된 텍스트 영역을 감지한 다음 각 영역에서 텍스트 줄을 추출하고 이미지의 텍스트 줄 위치를 강조 표시합니다. 그런 후에 각 줄의 단어를 추출하여 인쇄합니다.
 5. 변경 내용을 저장하고 **read-text** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
 **C#**
@@ -208,12 +208,12 @@ python read-text.py
 
 ## <a name="use-the-read-api"></a>Read API 사용
 
-The <bpt id="p1">**</bpt>Read<ept id="p1">**</ept> API uses a newer text recognition model than the OCR API, and performs better for larger images that contain a lot of text. It also supports text extraction from <bpt id="p1">*</bpt>.pdf<ept id="p1">*</ept> files, and can recognize both printed text and handwritten text in multiple languages.
+**Read** API는 OCR API에 비해 최신 버전의 텍스트 인식 모델을 사용하며, 텍스트가 많이 포함된 큰 이미지에서 텍스트를 인식하는 성능이 더 우수합니다. 또한 *.pdf* 파일에서 텍스트를 추출하는 작업도 지원하며, 여러 언어의 인쇄된 텍스트와 필기 텍스트를 모두 인식할 수 있습니다.
 
 **Read** API는 비동기 작업 모델을 사용합니다. 이 모델에서는 텍스트 인식 시작 요청이 제출되며, 해당 요청에서 반환된 작업 ID를 이후 작업에서 사용하여 진행률을 확인하고 결과를 검색할 수 있습니다.
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>2<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function, passing the path to a PDF document file.
-2. In the <bpt id="p1">**</bpt>read-text/images<ept id="p1">**</ept> folder, right-click <bpt id="p2">**</bpt>Rome.pdf<ept id="p2">**</ept> and select <bpt id="p3">**</bpt>Reveal in File Explorer<ept id="p3">**</ept>. Then in File Explorer, open the PDF file to view it.
+1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **2**를 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextRead** 함수를 호출하여 PDF 문서 파일의 경로를 전달합니다.
+2. **read-text/images** 폴더에서 **Rome.pdf**를 마우스 오른쪽 단추로 클릭하고 **파일 탐색기에 표시**를 선택합니다. 그런 다음 파일 탐색기에서 PDF 파일을 열어 표시합니다.
 3. Visual Studio Code의 코드 파일로 돌아와서 **GetTextRead** 함수를 찾은 다음 콘솔에 메시지를 인쇄하는 기존 코드 아래에 다음 코드를 추가합니다.
 
 **C#**
@@ -278,7 +278,7 @@ with open(image_file, mode="rb") as image_data:
                 print(line.text)
 ```
     
-4. Examine the code you added to the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function. It submits a request for a read operation, and then repeatedly checks status until the operation has completed. If it was successful, the code processes the results by iterating through each page, and then through each line.
+4. **GetTextRead** 함수에 추가한 코드를 살펴봅니다. 이 코드는 읽기 작업 요청을 제출한 다음 작업이 완료될 때까지 상태를 반복 확인합니다. 작업이 정상적으로 완료된 경우 코드는 각 페이지와 각 페이지 줄에서 차례로 반복 실행되어 결과를 처리합니다.
 5. 변경 내용을 저장하고 **read-text** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
 **C#**
@@ -299,7 +299,7 @@ python read-text.py
 
 **Read** API는 인쇄된 텍스트뿐 아니라 영어 필기 텍스트도 추출할 수 있습니다.
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>3<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function, passing the path to an image file.
+1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **3**을 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextRead** 함수를 호출하여 이미지 파일의 경로를 전달합니다.
 2. **read-text/images** 폴더에서 **Note.jpg**를 열어 코드가 처리할 이미지를 표시합니다.
 3. **read-text** 폴더의 통합 터미널에서 다음 명령을 입력하여 프로그램을 실행합니다.
 

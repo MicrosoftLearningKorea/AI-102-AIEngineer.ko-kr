@@ -8,7 +8,7 @@ lab:
 
 **Translator** 서비스는 언어 간에 텍스트를 번역할 수 있는 Cognitive Service입니다.
 
-For example, suppose a travel agency wants to examine hotel reviews that have been submitted to the company's web site, standardizing on English as the language that is used for analysis. By using the Translator service, they can determine the language each review is written in, and if it is not already English, translate it from whatever source language it was written in into English.
+회사 웹 사이트로 제출된 호텔 리뷰를 살펴보고 분석에 사용되는 언어로는 영어를 표준으로 사용하려는 여행사의 경우를 예로 들어 보겠습니다. 이 회사는 Translator 서비스를 사용해 각 리뷰가 작성된 언어를 확인하고 영어로 작성되지 않은 리뷰는 작성 시에 사용했던 원본 언어에 관계없이 영어로 번역할 수 있습니다.
 
 ## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
 
@@ -34,20 +34,20 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
     - **가격 책정 계층**: 표준 S0
 3. 필요한 확인란을 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
+5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 키 중 하나, 그리고 이 페이지에서 서비스가 프로비전된 위치가 필요합니다.
 
 ## <a name="prepare-to-use-the-translator-service"></a>Translator 서비스 사용 준비
 
 이 연습에서는 Translator REST API를 사용해 호텔 리뷰를 번역하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the API from either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **참고**: **C#** 또는 **Python**의 API 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
 1. Visual Studio Code의 **탐색기** 창에서 **06-translate-text** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
 2. **text-translation** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to include an authentication <bpt id="p1">**</bpt>key<ept id="p1">**</ept> for your cognitive services resource, and the <bpt id="p2">**</bpt>location<ept id="p2">**</ept> where it is deployed (<bpt id="p3">&lt;u&gt;</bpt>not<ept id="p3">&lt;/u&gt;</ept> the endpoint) - you should copy both of these from the <bpt id="p4">**</bpt>keys and Endpoint<ept id="p4">**</ept> page for your cognitive services resource. Save your changes.
+    구성 파일을 열고 Cognitive Services 리소스용 인증 **키**와 해당 리소스를 배포한 **위치**(엔드포인트 <u>아님</u>)를 포함하도록 해당 파일에 포함된 구성 값을 업데이트합니다. Cognitive Services 리소스의 **키 및 엔드포인트** 페이지에서 둘 다 복사해야 합니다. 변경 내용을 저장합니다.
 3. **text-translation** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#** : Program.cs
@@ -55,7 +55,7 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 
     코드 파일을 열고 포함되어 있는 코드를 살펴봅니다.
 
-4. 회사 웹 사이트로 제출된 호텔 리뷰를 살펴보고 분석에 사용되는 언어로는 영어를 표준으로 사용하려는 여행사의 경우를 예로 들어 보겠습니다.
+4. **Main** 함수에서 구성 파일의 Cognitive Services 키 및 지역을 로드하는 코드가 이미 제공되어 있음을 확인합니다. Translation 서비스용 엔드포인트도 코드에 지정되어 있습니다.
 5. **text-translation** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 연 후에 다음 명령을 입력하여 프로그램을 실행합니다.
 
     **C#**
@@ -70,7 +70,7 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
     python text-translation.py
     ```
 
-6. 이 회사는 Translator 서비스를 사용해 각 리뷰가 작성된 언어를 확인하고 영어로 작성되지 않은 리뷰는 작성 시에 사용했던 원본 언어에 관계없이 영어로 번역할 수 있습니다.
+6. 오류가 발생하지 않고 코드가 실행되어 **reviews** 폴더에 있는 각 리뷰 텍스트 파일의 내용이 표시되는지 확인합니다. 애플리케이션은 현재 Translator 서비스를 사용하고 있지 않습니다. 다음 절차에서 애플리케이션이 서비스를 사용하도록 수정합니다.
 
 ## <a name="detect-language"></a>언어 검색
 

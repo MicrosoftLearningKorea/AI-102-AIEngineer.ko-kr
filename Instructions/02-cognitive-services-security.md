@@ -37,21 +37,21 @@ lab:
 
 ## <a name="manage-authentication-keys"></a>인증 키 관리
 
-When you created your cognitive services resource, two authentication keys were generated. You can manage these in the Azure portal or by using the Azure command line interface (CLI).
+Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. 이러한 키는 Azure Portal에서 관리할 수도 있고 Azure CLI(명령줄 인터페이스)를 사용하여 관리할 수도 있습니다.
 
-1. In the Azure portal, go to your cognitive services resource and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. This page contains the information that you will need to connect to your resource and use it from applications you develop. Specifically:
+1. Azure Portal에서 Cognitive Services 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 이 페이지에는 리소스에 연결하여 직접 개발한 애플리케이션에서 해당 리소스를 사용하려면 필요한 정보가 포함되어 있습니다. 특히 다음 사항에 주의하세요.
     - 클라이언트 애플리케이션이 요청을 보낼 수 있는 HTTP *엔드포인트*
-    - Two <bpt id="p1">*</bpt>keys<ept id="p1">*</ept> that can be used for authentication (client applications can use either of the keys. A common practice is to use one for development, and another for production. You can easily regenerate the development key after developers have finished their work to prevent continued access).
-    - The <bpt id="p1">*</bpt>location<ept id="p1">*</ept> where the resource is hosted. This is required for requests to some (but not all) APIs.
-2. In Visual Studio Code, right-click the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder and open an integrated terminal. Then enter the following command to sign into your Azure subscription by using the Azure CLI.
+    - 인증에 사용할 수 있는 *키* 2개(클라이언트 애플리케이션은 두 키 중 하나를 사용할 수 있습니다. 일반적으로는 개발과 프로덕션용으로 키를 하나씩 사용합니다. 개발자가 작업을 완료하고 나면 리소스에 계속 액세스할 수 없도록 개발 키를 쉽게 다시 생성할 수 있습니다.)
+    - 리소스가 호스트되는 *위치*. 일부 API(모든 API는 아님)에 요청을 보내려면 이 위치가 필요합니다.
+2. Visual Studio Code에서 **02-cognitive-security** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 후에 다음 명령을 입력하여 Azure CLI를 사용해 Azure 구독에 로그인합니다.
 
     ```
     az login
     ```
 
-    A web browser tab will open and prompt you to sign into Azure. Do so, and then close the browser tab and return to Visual Studio Code.
+    웹 브라우저 탭이 열리고 Azure에 로그인하라는 메시지가 표시됩니다. Azure에 로그인한 다음 브라우저 탭을 닫고 Visual Studio Code로 돌아옵니다.
 
-    > <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: If you have multiple subscriptions, you'll need to ensure that you are working in the one that contains your cognitive services resource.  Use this command to         determine your current subscription - its unique ID is the <bpt id="p1">**</bpt>id<ept id="p1">**</ept> value in the JSON that gets returned.
+    > **팁**: 구독이 여러 개이면 Cognitive Services 리소스가 포함된 구독에서 작업 중인지를 확인해야 합니다.  다음 명령을 사용하여 현재 구독을 확인합니다. 반환되는 JSON의 **id** 값이 구독의 고유 ID입니다.
 
     > **경고**: `az login`에 대한 인증서 꼭짓점 오류가 발생하는 경우 몇 분 정도 기다렸다가 다시 시도하세요.
     >
@@ -75,7 +75,7 @@ When you created your cognitive services resource, two authentication keys were 
 
 이 명령은 Cognitive Services 리소스의 키 목록을 반환합니다. 목록에는 **key1** 및 **key2**의 2개 키가 포함되어 있습니다.
 
-4. To test your cognitive service, you can use <bpt id="p1">**</bpt>curl<ept id="p1">**</ept> - a command line tool for HTTP requests. In the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>rest-test.cmd<ept id="p2">**</ept> and edit the <bpt id="p3">**</bpt>curl<ept id="p3">**</ept> command it contains (shown below), replacing <bpt id="p4">*</bpt><ph id="ph1">&amp;lt;</ph>yourEndpoint<ph id="ph2">&amp;gt;</ph><ept id="p4">*</ept> and <bpt id="p5">*</bpt><ph id="ph3">&amp;lt;</ph>yourKey<ph id="ph4">&amp;gt;</ph><ept id="p5">*</ept> with your endpoint URI and <bpt id="p6">**</bpt>Key1<ept id="p6">**</ept> key to use the Text Analytics API in your cognitive services resource.
+4. Cognitive Service를 테스트하려는 경우 HTTP 요청용 명령줄 도구인 **curl**을 사용하면 됩니다. **02-cognitive-security** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. Cognitive Services 리소스의 Text Analytics API를 사용하도록 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;* 를 엔드포인트 URI와 **Key1** 키로 바꾸면 됩니다.
 
     ```
     curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
@@ -89,7 +89,7 @@ When you created your cognitive services resource, two authentication keys were 
 
 이 명령은 입력 데이터에서 감지된 언어(영어) 관련 정보가 포함된 JSON 문서를 반환합니다.
 
-6. If a key becomes compromised, or the developers who have it no longer require access, you can regenerate it in the portal or by using the Azure CLI. Run the following command to regenerate your <bpt id="p1">**</bpt>key1<ept id="p1">**</ept> key (replacing <bpt id="p2">*</bpt><ph id="ph1">&amp;lt;</ph>resourceName<ph id="ph2">&amp;gt;</ph><ept id="p2">*</ept> and <bpt id="p3">*</bpt><ph id="ph3">&amp;lt;</ph>resourceGroup<ph id="ph4">&amp;gt;</ph><ept id="p3">*</ept> for your resource).
+6. 키가 손상되었거나 키를 소유한 개발자가 더 이상 리소스에 액세스할 필요가 없는 경우 Azure Portal에서 Azure CLI를 사용하여 키를 다시 생성할 수 있습니다. 다음 명령을 실행하여 **key1** 키를 다시 생성합니다( *&lt;resourceName&gt;* 및 *&lt;resourceGroup&gt;* 은 리소스 관련 정보로 바꿔야 함).
 
     ```
     az cognitiveservices account keys regenerate --name <resourceName> --resource-group <resourceGroup> --key-name key1
@@ -98,13 +98,13 @@ When you created your cognitive services resource, two authentication keys were 
 Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마지막으로 검색한 이후로 변경되었음을 확인할 수 있습니다.
 
 7. 이전 키를 사용하여 **rest-test** 명령을 다시 실행하고( **^** 키를 사용하여 이전 명령을 차례로 다시 실행할 수 있음) 이번에는 명령 실행이 실패함을 확인합니다.
-8. Edit the <bpt id="p1">*</bpt>curl<ept id="p1">*</ept> command in <bpt id="p2">**</bpt>rest-test.cmd<ept id="p2">**</ept> replacing the key with the new <bpt id="p3">**</bpt>key1<ept id="p3">**</ept> value, and save the changes. Then rerun the <bpt id="p1">**</bpt>rest-test<ept id="p1">**</ept> command and verify that it succeeds.
+8. **rest-test.cmd**의 *curl* 명령을 편집하여 키를 새 **key1** 값으로 바꾸고 변경 내용을 저장합니다. 그런 다음 **rest-test** 명령을 다시 실행하여 정상적으로 실행됨을 확인합니다.
 
-> <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: In this exercise, you used the full names of Azure CLI parameters, such as <bpt id="p2">**</bpt>--resource-group<ept id="p2">**</ept>.  You can also use shorter alternatives, such as <bpt id="p1">**</bpt>-g<ept id="p1">**</ept>, to make your commands less verbose (but a little harder to understand).  The <bpt id="p1">[</bpt>Cognitive Services CLI command reference<ept id="p1">](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)</ept> lists the parameter options for each cognitive services CLI command.
+> **팁**: 이 연습에서는 **--resource-group**과 같은 Azure CLI 매개 변수의 전체 이름을 사용했습니다.  **-g** 등의 더 짧은 이름을 사용하면 명령을 더 간단하게 작성할 수도 있습니다(하지만 명령을 이해하기는 좀 더 어려울 수도 있음).  각 Cognitive Services CLI 명령용 매개 변수 옵션의 목록은 [Cognitive Services CLI 명령 참조](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)에 나와 있습니다.
 
 ## <a name="secure-key-access-with-azure-key-vault"></a>Azure Key Vault를 사용하여 키 액세스 보호
 
-You can develop applications that consume cognitive services by using a key for authentication. However, this means that the application code must be able to obtain the key. One option is to store the key in an environment variable or a configuration file where the application is deployed, but this approach leaves the key vulnerable to unauthorized access. A better approach when developing applications on Azure is to store the key securely in Azure Key Vault, and provide access to the key through a <bpt id="p1">*</bpt>managed identity<ept id="p1">*</ept> (in other words, a user account used by the application itself).
+인증용 키를 사용하면 Cognitive Services를 사용하는 애플리케이션을 개발할 수 있습니다. 하지만 이 경우에는 애플리케이션 코드가 키를 가져올 수 있어야 합니다. 애플리케이션이 배포되는 구성 파일이나 환경 변수에 키를 저장하는 옵션을 사용할 수도 있습니다. 그러나 이 방식을 사용하면 키가 무단 액세스에 취약해집니다. Azure에서 애플리케이션을 개발할 때 사용 가능한 더 효율적인 방식은 Azure Key Vault에 키를 안전하게 저장한 다음 *관리 ID*(애플리케이션 자체에 사용되는 사용자 계정)를 통해 키 액세스 권한을 제공하는 것입니다.
 
 ### <a name="create-a-key-vault-and-add-a-secret"></a>키 자격 증명 모음 만들기 및 비밀 추가
 
@@ -126,9 +126,9 @@ You can develop applications that consume cognitive services by using a key for 
 
 ### <a name="create-a-service-principal"></a>서비스 주체 만들기
 
-To access the secret in the key vault, your application must use a service principal that has access to the secret. You'll use the Azure command line interface (CLI) to create the service principal, find its object ID, and grant access to the secret in Azure Vault.
+키 자격 증명 모음의 비밀에 액세스하려면 애플리케이션이 비밀 액세스 권한이 있는 서비스 주체를 사용해야 합니다. Azure CLI(명령줄 인터페이스)를 사용하여 서비스 주체를 만들고, 해당 개체 ID를 찾고, Azure Vault의 비밀에 대한 액세스 권한을 부여합니다.
 
-1. Return to Visual Studio Code, and in the integrated terminal for the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder, run the following Azure CLI command, replacing <bpt id="p2">*</bpt><ph id="ph1">&amp;lt;</ph>spName<ph id="ph2">&amp;gt;</ph><ept id="p2">*</ept> with a suitable name for an application identity (for example, <bpt id="p3">*</bpt>ai-app<ept id="p3">*</ept>). Also replace <bpt id="p1">*</bpt><ph id="ph1">&amp;lt;</ph>subscriptionId<ph id="ph2">&amp;gt;</ph><ept id="p1">*</ept> and <bpt id="p2">*</bpt><ph id="ph3">&amp;lt;</ph>resourceGroup<ph id="ph4">&amp;gt;</ph><ept id="p2">*</ept> with the correct values for your subscription ID and the resource group containing your cognitive services and key vault resources:
+1. Visual Studio Code로 돌아와 **02-cognitive-security** 폴더의 통합 터미널에서 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;spName&gt;* 은 애플리케이션 ID에 적합한 이름(예: *ai-app*)으로 바꿉니다. 그리고 *&lt;subscriptionId&gt;* 및 *&lt;resourceGroup&gt;* 도 구독 ID, 그리고 Cognitive Services 및 키 자격 증명 모음 리소스가 포함된 리소스 그룹의 올바른 값으로 바꿉니다.
 
     > **팁**: 구독 ID를 모르는 경우 **az account show** 명령을 실행하여 구독 정보를 검색합니다. 출력의 **id** 특성이 구독 ID입니다.
 
@@ -136,7 +136,7 @@ To access the secret in the key vault, your application must use a service princ
     az ad sp create-for-rbac -n "api://<spName>" --role owner --scopes subscriptions/<subscriptionId>/resourceGroups/<resourceGroup>
     ```
 
-The output of this command includes information about your new service principal. It should look similar to this:
+이 명령의 출력에는 새 서비스 주체 관련 정보가 포함되어 있습니다. 다음과 같이 표시됩니다.
 
     ```
     {
@@ -166,10 +166,10 @@ The output of this command includes information about your new service principal
 
 이제 애플리케이션에서 서비스 주체 ID를 사용할 수 있습니다. 이 ID를 사용하면 애플리케이션이 키 자격 증명 모음의 비밀 Cognitive Services 키에 액세스한 다음 Cognitive Services 리소스에 연결하는 데 해당 키를 사용할 수 있습니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, we'll store the service principal credentials in the application configuration and use them to authenticate a <bpt id="p2">**</bpt>ClientSecretCredential<ept id="p2">**</ept> identity in your application code. This is fine for development and testing, but in a real production application, an administrator would assign a <bpt id="p1">*</bpt>managed identity<ept id="p1">*</ept> to the application so that it uses the service principal identity to access resources, without caching or storing the password.
+> **참고**: 이 연습에서는 애플리케이션 구성에 서비스 주체 자격 증명을 저장한 다음 애플리케이션 코드의 **ClientSecretCredential** ID를 인증하는 데 사용합니다. 개발 및 테스트 애플리케이션에서는 이러한 방식을 사용해도 되지만 실제 프로덕션 애플리케이션에서는 관리자가 애플리케이션에 *관리 ID*를 할당합니다. 그러면 애플리케이션이 암호를 저장하거나 캐시하지 않고 서비스 주체 ID를 사용해 리소스에 액세스할 수 있습니다.
 
 1. Visual Studio Code에서 **02-cognitive-security** 폴더를 확장하고 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
-2. Right-click the <bpt id="p1">**</bpt>keyvault-client<ept id="p1">**</ept> folder and open an integrated terminal. Then install the packages you will need to use Azure Key Vault and the Text Analytics API in your cognitive services resource by running the appropriate command for your language preference:
+2. **keyvault-client** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Cognitive Services 리소스에서 Azure Key Vault 및 Text Analytics API를 사용하는 데 필요한 패키지를 설치합니다.
 
     **C#**
 
@@ -223,7 +223,7 @@ The output of this command includes information about your new service principal
     python keyvault-client.py
     ```
 
-6. When prompted, enter some text and review the language that is detected by the service. For example, try entering "Hello", "Bonjour", and "Gracias".
+6. 메시지가 표시되면 텍스트를 입력하고 서비스가 감지하는 언어를 검토합니다. 예를 들어, “Hello”, “Bonjour”, “Hola” 등을 입력해 봅니다.
 7. 애플리케이션 테스트를 완료한 후 "quit"을 입력하여 프로그램을 중지합니다.
 
 ## <a name="more-information"></a>추가 정보

@@ -6,7 +6,7 @@ lab:
 
 # <a name="enable-resource-providers"></a>리소스 공급자 사용
 
-There are some resource providers that must be registered in your Azure subscription. Follow these steps to ensure that they're registered.
+Azure 구독에는 몇 가지 리소스 공급자를 등록해야 합니다. 이러한 공급자가 등록되어 있는지 확인하려면 다음 단계를 수행합니다.
 
 1. 구독과 연결된 Microsoft 자격 증명을 사용하여 `https://portal.azure.com`에서 Azure Portal에 로그인합니다.
 2. **홈** 페이지에서 **구독**을 선택합니다(또는 **&#8801;** 메뉴에서 **모든 서비스**를 선택하고 **일반** 범주에서 **구독** 선택).

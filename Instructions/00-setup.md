@@ -6,9 +6,9 @@ lab:
 
 # <a name="lab-environment-setup"></a>랩 환경 설정
 
-These exercises are designed to be completed in a hosted lab environment. If you want to complete them on your own computer, you can do so by installing the following software. You may experience unexpected dialogs and behavior when using your own environment. Due to the wide range of possible local configurations, the course team cannot support issues you may encounter in your own environment.
+이 과정의 연습은 호스트된 랩 환경에서 완료해야 합니다. 개인 컴퓨터에서 연습을 완료하려는 경우 다음 소프트웨어를 설치하면 됩니다. 사용자의 개인 환경을 사용할 경우 예기치 않은 대화 상자와 동작이 발생할 수 있습니다. 다양한 로컬 구성이 가능하기 때문에 과정 팀은 사용자 환경에서 발생할 수 있는 문제를 지원할 수 없습니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The instructions below are for a Windows 10 computer. You can also use Linux or MacOS. You may need to adapt the lab instructions for your chosen OS.
+> **참고**: 아래 지침은 Windows 10용입니다. Linux 또는 MacOS를 사용할 수도 있습니다. 선택한 OS에 맞게 랩 지침을 조정해야 할 수도 있습니다.
 
 ### <a name="base-operating-system-windows-10"></a>기본 운영 체제(Windows 10)
 

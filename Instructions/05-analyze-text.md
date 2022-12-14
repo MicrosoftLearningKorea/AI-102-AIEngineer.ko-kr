@@ -8,11 +8,11 @@ lab:
 
 **언어** 서비스는 언어 감지, 감정 분석, 핵심 구 추출, 엔터티 인식 등의 텍스트 분석을 지원하는 Cognitive Service입니다.
 
-For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Language service, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews.
+회사 웹 사이트로 제출된 호텔 리뷰를 처리하려는 여행사의 경우를 예로 들어 보겠습니다. 이 여행사는 언어 서비스를 사용하여 각 리뷰를 작성한 언어, 리뷰의 감정(긍정적, 중립, 부정적), 리뷰에 설명되어 있는 주요 토픽을 나타낼 수 있는 핵심 구, 그리고 리뷰에 언급되어 있는 장소, 주요 건물, 사람 등의 명명된 엔터티를 확인할 수 있습니다.
 
 ## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
 1. Visual Studio Code를 시작합니다.
 2. 팔레트를 열고(Shift+Ctrl+P) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
@@ -34,16 +34,16 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     - **가격 책정 계층**: 표준 S0
 3. 필요한 확인란을 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
 ## <a name="prepare-to-use-the-language-sdk-for-text-analytics"></a>텍스트 분석에 언어 SDK 사용 준비
 
 이 연습에서는 언어 서비스 Text Analytics SDK를 사용해 호텔 리뷰를 분석하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
 1. Visual Studio Code의 **탐색기** 창에서 **05-analyze-text** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
-2. 회사 웹 사이트로 제출된 호텔 리뷰를 처리하려는 여행사의 경우를 예로 들어 보겠습니다.
+2. **text-analysis** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Text Analytics SDK 패키지를 설치합니다.
     
     **C#**
     
@@ -61,14 +61,14 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     - **C#** : appsettings.json
     - **Python**: .env
 
-    이 여행사는 언어 서비스를 사용하여 각 리뷰를 작성한 언어, 리뷰의 감정(긍정적, 중립, 부정적), 리뷰에 설명되어 있는 주요 토픽을 나타낼 수 있는 핵심 구, 그리고 리뷰에 언급되어 있는 장소, 주요 건물, 사람 등의 명명된 엔터티를 확인할 수 있습니다.
+    구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
 
 4. **text-analysis** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#** : Program.cs
     - **Python**: text-analysis.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
+    코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Text Analytics SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
     **C#**
     
@@ -86,7 +86,7 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-5. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that code to load the cognitive services endpoint and key from the configuration file has already been provided. Then find the comment <bpt id="p1">**</bpt>Create client using endpoint and key<ept id="p1">**</ept>, and add the following code to create a client for the Text Analysis API:
+5. **Main** 함수에서 구성 파일의 Cognitive Services 엔드포인트 및 키를 로드하는 코드가 이미 제공되어 있음을 확인합니다. 그런 후 **엔드포인트와 키를 사용하여 클라이언트 만들기** 주석을 찾아서 다음 코드를 추가하여 Text Analytics API용 클라이언트를 만듭니다.
 
     **C#**
 
@@ -119,13 +119,13 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     python text-analysis.py
     ```
 
-6. 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다.
+6. 오류가 발생하지 않고 코드가 실행되어 **reviews** 폴더에 있는 각 리뷰 텍스트 파일의 내용이 표시되는지 확인합니다. 애플리케이션은 Text Analytics API용 클라이언트를 만들었지만 해당 클라이언트를 사용하지는 않습니다. 다음 절차에서 애플리케이션이 서비스를 사용하도록 수정합니다.
 
 ## <a name="detect-language"></a>언어 검색
 
 Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언트를 사용해 각 리뷰를 작성한 언어를 감지해 보겠습니다.
 
-1. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
+1. 프로그램의 **Main** 함수에서 **언어 가져오기** 주석을 찾습니다. 그 후에 이 주석 아래에 각 리뷰 문서의 언어를 감지하는 데 필요한 코드를 추가합니다.
 
     **C#**
     
@@ -163,9 +163,9 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
 
 ## <a name="evaluate-sentiment"></a>감정 평가
 
-<bpt id="p1">*</bpt>Sentiment analysis<ept id="p1">*</ept> is a commonly used technique to classify text as <bpt id="p2">*</bpt>positive<ept id="p2">*</ept> or <bpt id="p3">*</bpt>negative<ept id="p3">*</ept> (or possible <bpt id="p4">*</bpt>neutral<ept id="p4">*</ept> or <bpt id="p5">*</bpt>mixed<ept id="p5">*</ept>). It's commonly used to analyze social media posts, product reviews, and other items where the sentiment of the text may provide useful insights.
+감정 분석은 텍스트를 긍정적 또는 부정적으로 분류할 때 흔히 사용되는 기술입니다(중립적 또는 혼합으로 분류할 수도 있음).     감정 분석은 소셜 미디어 게시물, 제품 리뷰, 그리고 텍스트 감정이 유용한 인사이트를 제공할 수 있는 기타 항목을 분석하는 데 흔히 사용됩니다.
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get sentiment<ept id="p2">**</ept>. Then, under this comment, add the code necessary to detect the sentiment of each review document:
+1. 프로그램의 **Main** 함수에서 **감정 가져오기** 주석을 찾습니다. 그 후에 이 주석 아래에 각 리뷰 문서의 감정을 감지하는 데 필요한 코드를 추가합니다.
 
     **C#**
     
@@ -203,7 +203,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
 
 텍스트 본문에서 핵심 구를 식별하면 텍스트에 설명되어 있는 주요 토픽을 확인하는 데 유용할 수 있습니다.
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get key phrases<ept id="p2">**</ept>. Then, under this comment, add the code necessary to detect the key phrases in each review document:
+1. 프로그램의 **Main** 함수에서 **핵심 구 가져오기** 주석을 찾습니다. 그 후에 이 주석 아래에 각 리뷰 문서의 핵심 구를 감지하는 데 필요한 코드를 추가합니다.
 
     **C#**
 
@@ -249,9 +249,9 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
 
 ## <a name="extract-entities"></a>엔터티 추출
 
-Often, documents or other bodies of text mention people, places, time periods, or other entities. The text Analytics API can detect multiple categories (and subcategories) of entity in your text.
+문서나 기타 텍스트 본문에서는 사람, 장소, 기간 또는 기타 엔터티를 언급하는 경우가 많습니다. Text Analytics API는 텍스트 내 엔터티의 여러 범주(및 하위 범주)를 감지할 수 있습니다.
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get entities<ept id="p2">**</ept>. Then, under this comment, add the code necessary to identify entities that are mentioned in each review:
+1. 프로그램의 **Main** 함수에서 **엔터티 가져오기** 주석을 찾습니다. 그 후에 이 주석 아래에 각 리뷰에 언급되어 있는 엔터티를 식별하는 데 필요한 코드를 추가합니다.
 
     **C#**
     
@@ -299,7 +299,7 @@ Often, documents or other bodies of text mention people, places, time periods, o
 
 Text Analytics API는 범주화된 엔터티뿐 아니라 Wikipedia 등의 데이터 원본에 대한 알려진 링크가 있는 엔터티도 감지할 수 있습니다.
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get linked entities<ept id="p2">**</ept>. Then, under this comment, add the code necessary to identify linked entities that are mentioned in each review:
+1. 프로그램의 **Main** 함수에서 **연결된 엔터티 가져오기** 주석을 찾습니다. 그 후에 이 주석 아래에 각 리뷰에 언급되어 있는 연결된 엔터티를 식별하는 데 필요한 코드를 추가합니다.
 
     **C#**
     

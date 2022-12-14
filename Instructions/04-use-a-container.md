@@ -6,9 +6,9 @@ lab:
 
 # <a name="use-a-cognitive-services-container"></a>Cognitive Services 컨테이너 사용
 
-Using cognitive services hosted in Azure enables application developers to focus on the infrastructure for their own code while benefiting from scalable services that are managed by Microsoft. However, in many scenarios, organizations require more control over their service infrastructure and the data that is passed between services.
+Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이션 개발자는 직접 작성하는 코드용 인프라 관련 작업을 중점적으로 수행하는 동시에 Microsoft에서 관리하는 확장성 있는 서비스도 활용할 수 있습니다. 그러나 조직에서는 서비스 인프라 및 서비스 간에 전달되는 데이터를 더욱 철저하게 제어해야 하는 경우가 많습니다.
 
-Many of the cognitive services APIs can be packaged and deployed in a <bpt id="p1">*</bpt>container<ept id="p1">*</ept>, enabling organizations to host cognitive services in their own infrastructure; for example in local Docker servers, Azure Container Instances, or Azure Kubernetes Services clusters. Containerized cognitive services need to communicate with an Azure-based cognitive services account to support billing; but application data is not passed to the back-end service, and organizations have greater control over the deployment configuration of their containers, enabling custom solutions for authentication, scalability, and other considerations.
+대다수 Cognitive Services API는 *컨테이너*로 패키지하여 배포할 수 있습니다. 따라서 조직은 로컬 Docker 서버, Azure Container Instances, Azure Kubernetes Services 클러스터 등의 자체 인프라에서 Cognitive Services를 호스트할 수 있습니다. 컨테이너화된 Cognitive Services는 청구 지원을 위해 Azure 기반 Cognitive Services 계정과 통신해야 합니다. 그러나 애플리케이션 데이터는 백 엔드 서비스로 전달되지 않으며 조직은 컨테이너 배포 구성을 더욱 자세히 제어할 수 있습니다. 그러므로 인증, 확장성 및 기타 고려 사항 충족을 위한 사용자 지정 솔루션을 활용할 수 있습니다.
 
 ## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
 
@@ -34,11 +34,11 @@ Many of the cognitive services APIs can be packaged and deployed in a <bpt id="p
     - **가격 책정 계층**: 표준 S0
 3. 필요한 확인란을 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
 ## <a name="deploy-and-run-a-text-analytics-container"></a>Text Analytics 컨테이너 배포 및 실행
 
-Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이션 개발자는 직접 작성하는 코드용 인프라 관련 작업을 중점적으로 수행하는 동시에 Microsoft에서 관리하는 확장성 있는 서비스도 활용할 수 있습니다.
+흔히 사용되는 대다수 Cognitive Services API는 컨테이너 이미지에서 제공됩니다. 전체 API 목록은 [Cognitive Services 설명서](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)에서 확인할 수 있습니다. 이 연습에서는 Text Analytics *언어 감지* API용 컨테이너 이미지를 사용하지만 사용 가능한 모든 이미지에는 동일한 원칙이 적용됩니다.
 
 1. Azure Portal **홈** 페이지에서 **&#65291;리소스 만들기** 단추를 선택하고 *container instances*를 검색한 후에 다음 설정을 사용하여 **Container Instances** 리소스를 만듭니다.
 
@@ -76,13 +76,13 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
     - **IP 주소**: Container Instances에 액세스하는 데 사용할 수 있는 공용 IP 주소입니다.
     - **FQDN**: Container Instances 리소스의 *정규화된 도메인 이름*입니다. IP 주소 대신 이 이름을 사용하여 Container Instances에 액세스할 수 있습니다.
 
-    > 그러나 조직에서는 서비스 인프라 및 서비스 간에 전달되는 데이터를 더욱 철저하게 제어해야 하는 경우가 많습니다.
+    > **참고**: 이 연습에서는 ACI(Azure Container Instances) 리소스에 텍스트 번역용 Cognitive Services 컨테이너 이미지를 배포했습니다. 비슷한 접근 방식을 사용하여 개인 컴퓨터나 네트워크의 *[Docker](https://www.docker.com/products/docker-desktop)* 호스트에 이미지를 배포할 수도 있습니다. 이렇게 하려면 다음 명령(한 줄로)을 실행하여 로컬 Docker 인스턴스에 언어 감지 컨테이너를 배포합니다. 이때 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;* 는 각각 Cognitive Services 리소스의 엔드포인트 URI와 키 중 하나로 바꿉니다.
     >
     > ```
     > docker run --rm -it -p 5000:5000 --memory 4g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     > ```
     >
-    > The command will look for the image on your local machine, and if it doesn't find it there it will pull it from the <bpt id="p1">*</bpt>mcr.microsoft.com<ept id="p1">*</ept> image registry and deploy it to your Docker instance. When deployment is complete, the container will start and listen for incoming requests on port 5000.
+    > 이 명령은 로컬 컴퓨터에서 이미지를 찾은 후 이미지가 없으면 *mcr.microsoft.com* 이미지 레지스트리에서 이미지를 끌어와 Docker 인스턴스에 배포합니다. 배포가 완료되면 컨테이너가 시작되어 포트 5000에서 들어오는 요청을 수신 대기합니다.
 
 ## <a name="use-the-container"></a>컨테이너 사용
 
@@ -92,8 +92,8 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
     curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.0/languages?" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"
     ```
 
-2. 대다수 Cognitive Services API는 *컨테이너*로 패키지하여 배포할 수 있습니다. 따라서 조직은 로컬 Docker 서버, Azure Container Instances, Azure Kubernetes Services 클러스터 등의 자체 인프라에서 Cognitive Services를 호스트할 수 있습니다.
-3. 컨테이너화된 Cognitive Services는 청구 지원을 위해 Azure 기반 Cognitive Services 계정과 통신해야 합니다. 그러나 애플리케이션 데이터는 백 엔드 서비스로 전달되지 않으며 조직은 컨테이너 배포 구성을 더욱 자세히 제어할 수 있습니다. 그러므로 인증, 확장성 및 기타 고려 사항 충족을 위한 사용자 지정 솔루션을 활용할 수 있습니다.
+2. 스크립트 변경 내용을 저장합니다. 요청은 컨테이너화된 서비스에서 처리되므로 Cognitive Services 엔드포인트나 키는 지정하지 않아도 됩니다. 컨테이너는 Azure의 서비스와 주기적으로 통신하여 청구용으로 사용량을 보고하지만 요청 데이터를 전송하지는 않습니다.
+3. **04-containers** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 후 다음 명령을 입력하여 스크립트를 실행합니다.
 
     ```
     rest-test
@@ -108,6 +108,6 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 1. Azure Portal에서 이 연습용으로 리소스를 만든 리소스 그룹을 엽니다.
 2. 컨테이너 인스턴스 리소스를 선택하여 삭제합니다.
 
-## <a name="more-information"></a>자세한 정보
+## <a name="more-information"></a>추가 정보
 
 Cognitive Services를 컨테이너화하는 방법에 대한 자세한 내용은 [Cognitive Services 컨테이너 설명서](https://docs.microsoft.com/azure/cognitive-services/containers/)를 참조하세요.

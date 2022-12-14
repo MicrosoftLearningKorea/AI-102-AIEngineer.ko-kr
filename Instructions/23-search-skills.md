@@ -6,7 +6,7 @@ lab:
 
 # <a name="create-a-custom-skill-for-azure-cognitive-search"></a>Azure Cognitive Search용 사용자 지정 기술 만들기
 
-Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extract AI-generated fields from documents and include them in a search index. There's a comprehensive set of built-in skills that you can use, but if you have a specific requirement that isn't met by these skills, you can create a custom skill.
+Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용하여 문서에서 AI 생성 필드를 추출한 다음 검색 인덱스에 포함합니다. 포괄적인 기본 제공 기술 세트를 사용할 수 있습니다. 하지만 기본 제공 기술로는 특정 요구 사항을 충족할 수 없는 경우에는 사용자 지정 기술을 만들 수 있습니다.
 
 이 연습에서는 사용자 지정 기술을 만듭니다. 이 기술은 문서의 개별 단어 빈도를 표로 만들어 가장 많이 사용되는 상위 5개 단어 목록을 생성한 다음 가상의 여행사인 Margie's Travel용 검색 솔루션에 추가합니다.
 
@@ -23,13 +23,13 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 
 ## <a name="create-azure-resources"></a>Azure 리소스 만들기
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: If you have previously completed the <bpt id="p2">**</bpt><bpt id="p3">[</bpt>Create an Azure Cognitive Search solution<ept id="p3">](22-azure-search.md)</ept><ept id="p2">**</ept> exercise, and still have these Azure resources in your subscription, you can skip this section and start at the <bpt id="p4">**</bpt>Create a search solution<ept id="p4">**</ept> section. Otherwise, follow the steps below to provision the required Azure resources.
+> **참고**: **[Create an Azure Cognitive Search solution](22-azure-search.md)** 연습을 이전에 완료했으며 구독에 해당 연습의 Azure 리소스가 아직 남아 있으면 이 섹션을 건너뛰고 **검색 솔루션 만들기** 섹션부터 시작하면 됩니다. 그렇지 않은 경우에는 아래 단계에 따라 필요한 Azure 리소스를 프로비전합니다.
 
 1. 웹 브라우저에서 `https://portal.azure.com`의 Azure Portal을 열고 Azure 구독과 연관된 Microsoft 계정을 사용하여 로그인합니다.
 2. 구독의 **리소스 그룹**을 확인합니다.
-3. If you are using a restricted subscription in which a resource group has been provided for you, select the resource group to view its properties. Otherwise, create a new resource group with a name of your choice, and go to it when it has been created.
-4. Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용하여 문서에서 AI 생성 필드를 추출한 다음 검색 인덱스에 포함합니다.
-5. 포괄적인 기본 제공 기술 세트를 사용할 수 있습니다. 하지만 기본 제공 기술로는 특정 요구 사항을 충족할 수 없는 경우에는 사용자 지정 기술을 만들 수 있습니다.
+3. 제한된 구독을 사용 중이어서 리소스 그룹이 제공되어 있다면 해당 리소스 그룹을 선택하여 속성을 확인합니다. 그렇지 않은 경우에는 원하는 이름으로 새 리소스 그룹을 만들고 그룹이 만들어지면 해당 그룹으로 이동합니다.
+4. 리소스 그룹의 **개요** 페이지에서 **구독 ID** 및 **위치**를 확인합니다. 후속 단계에서 이러한 값과 리소스 그룹의 이름이 필요합니다.
+5. Visual Studio Code에서 **23-custom-search-skill** 폴더를 확장하고 **setup.cmd**를 선택합니다. 이 배치 스크립트를 사용하여 필요한 Azure 리소스를 만드는 데 필요한 Azure CLI(명령줄 인터페이스)를 실행합니다.
 6. **23-custom-search-skill** 폴더를 마우스 오른쪽 단추로 클릭하고 **통합 터미널에서 열기**를 선택합니다.
 7. 터미널 창에서 다음 명령을 입력하여 Azure 구독에 대해 인증된 연결을 설정합니다.
 
@@ -37,7 +37,7 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
     az login --output none
     ```
 
-8. When prompted, sign into your Azure subscription. Then return to Visual Studio Code and wait for the sign-in process to complete.
+8. 메시지가 표시되면 Azure 구독에 로그인합니다. 그런 다음 Visual Studio Code로 돌아가서 로그인 프로세스가 완료될 때까지 기다립니다.
 9. 다음 명령을 실행하여 Azure 위치를 나열합니다.
 
     ```
@@ -45,14 +45,14 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
     ```
 
 10. 출력에서 리소스 그룹 위치에 해당하는 **Name** 값을 찾습니다(예를 들어 미국 동부에 해당하는 이름은 *eastus*임).
-11. In the <bpt id="p1">**</bpt>setup.cmd<ept id="p1">**</ept> script, modify the <bpt id="p2">**</bpt>subscription_id<ept id="p2">**</ept>, <bpt id="p3">**</bpt>resource_group<ept id="p3">**</ept>, and <bpt id="p4">**</bpt>location<ept id="p4">**</ept> variable declarations with the appropriate values for your subscription ID, resource group name, and location name. Then save your changes.
+11. **setup.cmd** 스크립트에서 구독 ID, 리소스 그룹 이름 및 위치 이름에 해당하는 값을 사용하여 **subscription_id**, **resource_group** 및 **location** 변수 선언을 수정합니다. 그런 다음, 변경 사항을 저장합니다.
 12. **23-custom-search-skill** 폴더의 터미널에서 다음 명령을 입력하여 스크립트를 실행합니다.
 
     ```
     setup
     ```
 
-    > <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The Search CLI module is in preview, and may get stuck in the <bpt id="p2">*</bpt>- Running ..<ept id="p2">*</ept> process. If this happens for over 2 minutes, press CTRL+C to cancel the long-running operation, and then select <bpt id="p1">**</bpt>N<ept id="p1">**</ept> when asked if you want to terminate the script. It should then complete successfully.
+    > **참고**: Search CLI 모듈은 미리 보기 상태이므로 *- Running ..* 프로세스에서 실행이 중단될 수 있습니다. 포함되어 있습니다. 실행이 2분 넘게 중단되면 Ctrl+C를 눌러 장기 실행 작업을 취소한 다음 스크립트를 종료할 것인지를 묻는 메시지가 표시되면 **N**을 선택합니다. 그러면 실행이 정상적으로 완료됩니다.
     >
     > 스크립트 실행이 실패하면 올바른 변수 이름을 적용하여 스크립트를 저장했는지 확인하고 다시 시도합니다.
 
@@ -78,7 +78,7 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 
 이 연습에서는 Azure Cognitive Search REST 인터페이스를 사용하여 JSON 요청을 제출해 이러한 구성 요소를 만듭니다.
 
-1. In Visual Studio Code, in the <bpt id="p1">**</bpt>23-custom-search-skill<ept id="p1">**</ept> folder, expand the <bpt id="p2">**</bpt>create-search<ept id="p2">**</ept> folder and select <bpt id="p3">**</bpt>data_source.json<ept id="p3">**</ept>. This file contains a JSON definition for a data source named <bpt id="p1">**</bpt>margies-custom-data<ept id="p1">**</ept>.
+1. Visual Studio Code의 **23-custom-search-skill** 폴더에서 **create-search** 폴더를 확장하고 **data_source.json**을 선택합니다. 이 파일에는 **margies-custom-data** 데이터 원본의 JSON 정의가 포함되어 있습니다.
 2. **YOUR_CONNECTION_STRING** 자리 표시자는 Azure Storage 계정의 연결 문자열로 바꿉니다. 이 연결 문자열은 다음과 같습니다.
 
     ```
@@ -88,17 +88,17 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
     Azure Portal의 스토리지 계정 **액세스 키** 페이지에서 연결 문자열을 확인할 수 있습니다.
 
 3. 업데이트된 JSON 파일을 저장하고 닫습니다.
-4. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>skillset.json<ept id="p2">**</ept>. This file contains a JSON definition for a skillset named <bpt id="p1">**</bpt>margies-custom-skillset<ept id="p1">**</ept>.
+4. **create-search** 폴더에서 **skillset.json**을 엽니다. 이 파일에는 **margies-custom-skillset** 기술 세트의 JSON 정의가 포함되어 있습니다.
 5. 기술 세트 정의 맨 위에 있는 **cognitiveServices** 요소에서 **YOUR_COGNITIVE_SERVICES_KEY** 자리 표시자를 Cognitive Services 리소스의 키 중 하나로 바꿉니다.
 
     Azure Portal의 Cognitive Services 리소스에 대한 **키 및 엔드포인트** 페이지에서 키를 확인할 수 있습니다.
 
 6. 업데이트된 JSON 파일을 저장하고 닫습니다.
-7. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>index.json<ept id="p2">**</ept>. This file contains a JSON definition for an index named <bpt id="p1">**</bpt>margies-custom-index<ept id="p1">**</ept>.
+7. **create-search** 폴더에서 **index.json**을 엽니다. 이 파일에는 **margies-custom-index** 인덱스의 JSON 정의가 포함되어 있습니다.
 8. 인덱스의 JSON을 검토한 후 내용을 변경하지 않고 파일을 닫습니다.
-9. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>indexer.json<ept id="p2">**</ept>. This file contains a JSON definition for an indexer named <bpt id="p1">**</bpt>margies-custom-indexer<ept id="p1">**</ept>.
+9. **create-search** 폴더에서 **indexer.json**을 엽니다. 이 파일에는 **margies-custom-indexer** 인덱서의 JSON 정의가 포함되어 있습니다.
 10. 인덱서의 JSON을 검토한 후 내용을 변경하지 않고 파일을 닫습니다.
-11. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>create-search.cmd<ept id="p2">**</ept>. This batch script uses the cURL utility to submit the JSON definitions to the REST interface for your Azure Cognitive Search resource.
+11. **create-search** 폴더에서 **create-search.cmd**를 엽니다. 이 배치 스크립트는 cURL 유틸리티를 사용해 Azure Cognitive Search 리소스의 JSON 정의를 REST 인터페이스에 제출합니다.
 12. **YOUR_SEARCH_URL** 및 **YOUR_ADMIN_KEY** 변수 자리 표시자를 각각 **Url**, 그리고 Azure Cognitive Search 리소스의 **관리 키** 중 하나로 바꿉니다.
 
     Azure Portal의 Azure Cognitive Search 리소스 **개요** 및 **키** 페이지에서 이러한 값을 확인할 수 있습니다.
@@ -132,11 +132,11 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 
 검색 솔루션에는 여러 기본 제공 인식 기술이 포함되어 있습니다. 이러한 기술은 감정 점수, 이전 작업에서 확인했던 핵심 구 목록과 같은 문서의 정보를 사용하여 인덱스를 보강합니다.
 
-You can enhance the index further by creating custom skills. For example, it might be useful to identify the words that are used most frequently in each document, but no built-in skill offers this functionality.
+사용자 지정 기술을 만들면 인덱스를 추가로 보강할 수 있습니다. 예를 들어 각 문서에서 사용 빈도가 가장 높은 단어를 식별하려고 하는데 이 기능을 제공하는 기본 제공 기술은 없는 경우 사용자 지정 기술을 만들면 유용할 수 있습니다.
 
 여기서는 단어 개수 기능을 사용자 지정 기술로 구현하기 위해 원하는 언어로 Azure 함수를 만듭니다.
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, you'll create a simple Node.JS function using the code editing capabilities in the Azure portal. In a production solution, you would typically use a development environment such as Visual Studio Code to create a function app in your preferred language (for example C#, Python, Node.JS, or Java) and publish it to Azure as part of a DevOps process.
+> **참고**: 이 연습에서는 Azure Portal에서 코드 편집 기능을 사용하여 간단한 Node.JS 함수를 만듭니다. 프로덕션 솔루션에서는 일반적으로 Visual Studio Code 등의 개발 환경을 사용하여 원하는 언어(예: C#, Python, Node.JS 또는 Java)로 함수 앱을 만들고 DevOps 프로세스의 일부로 Azure에 게시합니다.
 
 1. Azure Portal의 **홈** 페이지에서 다음 설정을 사용하여 새 **함수 앱** 리소스를 만듭니다.
     - **구독**: *사용자의 구독*
@@ -156,7 +156,7 @@ You can enhance the index further by creating custom skills. For example, it mig
     - **템플릿 세부 정보**:
         - **새 함수**: wordcount
         - **권한 부여 수준**: 함수
-4. **참고**: **[Create an Azure Cognitive Search solution](22-azure-search.md)** 연습을 이전에 완료했으며 구독에 해당 연습의 Azure 리소스가 아직 남아 있으면 이 섹션을 건너뛰고 **검색 솔루션 만들기** 섹션부터 시작하면 됩니다.
+4. *wordcount* 함수가 만들어질 때까지 기다립니다. 그런 다음, 해당 페이지에서 **코드 + 테스트** 탭을 선택합니다.
 5. 기본 함수 코드를 다음 코드로 바꿉니다.
 
 ```javascript
@@ -283,7 +283,7 @@ module.exports = async function (context, req) {
     }
     ```
     
-8. 그렇지 않은 경우에는 아래 단계에 따라 필요한 Azure 리소스를 프로비전합니다.
+8. **실행**을 클릭하고 함수에서 반환하는 HTTP 응답 콘텐츠를 확인합니다. 여기에는 Azure Cognitive Search에서 기술을 사용할 때 필요한 스키마가 반영되며, 각 문서에 대한 응답이 반환됩니다. 이 경우 문서마다 최대 10개의 용어가 표시되는 빈도에 따라 내림차순으로 응답을 구성합니다.
 
     ```
     {
@@ -323,25 +323,25 @@ module.exports = async function (context, req) {
     }
     ```
 
-9. Close the <bpt id="p1">**</bpt>Test/Run<ept id="p1">**</ept> pane and in the <bpt id="p2">**</bpt>wordcount<ept id="p2">**</ept> function blade, click <bpt id="p3">**</bpt>Get function URL<ept id="p3">**</ept>. Then copy the URL for the default key to the clipboard. You'll need this in the next procedure.
+9. **테스트/실행** 창을 닫고 **wordcount** 함수 블레이드에서 **함수 URL 가져오기**를 클릭합니다. 그런 다음 기본 키의 URL을 클립보드에 복사합니다. 다음 절차에서 이 URL이 필요합니다.
 
 ## <a name="add-the-custom-skill-to-the-search-solution"></a>검색 솔루션에 사용자 지정 기술 추가
 
 이제검색 솔루션 기술 세트에 함수를 사용자 지정 기술로 포함하고 이 함수가 생성하는 결과를 인덱스의 필드에 매핑해야 합니다. 
 
-1. In Visual Studio Code, in the <bpt id="p1">**</bpt>23-custom-search-skill/update-search<ept id="p1">**</ept> folder, open the <bpt id="p2">**</bpt>update-skillset.json<ept id="p2">**</ept> file. This contains the JSON definition of a skillset.
-2. Review the skillset definition. It includes the same skills as before, as well as a new <bpt id="p1">**</bpt>WebApiSkill<ept id="p1">**</ept> skill named <bpt id="p2">**</bpt>get-top-words<ept id="p2">**</ept>.
+1. Visual Studio Code의 **23-custom-search-skill/update-search** 폴더에서 **update-skillset.json** 파일을 엽니다. 여기에는 기술 세트의 JSON 정의가 포함됩니다.
+2. 기술 세트 정의를 검토합니다. 여기에는 **get-top-words**라는 이름의 **WebApiSkill** 기술뿐 아니라 이전과 동일한 기술도 포함됩니다.
 3. **get-top-words** 기술 정의를 편집하여 **uri** 값을 Azure 함수의 URL(이전 절차에서 클립보드에 복사한 URL)로 설정합니다. **YOUR-FUNCTION-APP-URL**을 해당 URL로 바꾸면 됩니다.
 4. 기술 세트 정의 맨 위에 있는 **cognitiveServices** 요소에서 **YOUR_COGNITIVE_SERVICES_KEY** 자리 표시자를 Cognitive Services 리소스의 키 중 하나로 바꿉니다.
 
     Azure Portal의 Cognitive Services 리소스에 대한 **키 및 엔드포인트** 페이지에서 키를 확인할 수 있습니다.
 
 5. 업데이트된 JSON 파일을 저장하고 닫습니다.
-6. 제한된 구독을 사용 중이어서 리소스 그룹이 제공되어 있다면 해당 리소스 그룹을 선택하여 속성을 확인합니다.
+6. **update-search** 폴더에서 **update-index.json**을 엽니다. 이 파일에는 **margies-custom-index** 인덱스의 JSON 정의가 포함되어 있습니다. 인덱스 정의 맨 아래에는 추가 필드 **top_words**가 있습니다.
 7. 인덱스의 JSON을 검토한 후 내용을 변경하지 않고 파일을 닫습니다.
-8. 그렇지 않은 경우에는 원하는 이름으로 새 리소스 그룹을 만들고 그룹이 만들어지면 해당 그룹으로 이동합니다.
+8. **update-search** 폴더에서 **update-indexer.json**을 엽니다. 이 파일에는 **margies-custom-indexer**의 JSON 정의 및 **top_words** 필드에 대한 추가 매핑이 포함되어 있습니다.
 9. 인덱서의 JSON을 검토한 후 내용을 변경하지 않고 파일을 닫습니다.
-10. In the <bpt id="p1">**</bpt>update-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>update-search.cmd<ept id="p2">**</ept>. This batch script uses the cURL utility to submit the updated JSON definitions to the REST interface for your Azure Cognitive Search resource.
+10. **update-search** 폴더에서 **update-search.cmd**를 엽니다. 이 배치 스크립트는 cURL 유틸리티를 사용해 Azure Cognitive Search 리소스의 업데이트된 JSON 정의를 REST 인터페이스에 제출합니다.
 11. **YOUR_SEARCH_URL** 및 **YOUR_ADMIN_KEY** 변수 자리 표시자를 각각 **Url**, 그리고 Azure Cognitive Search 리소스의 **관리 키** 중 하나로 바꿉니다.
 
     Azure Portal의 Azure Cognitive Search 리소스 **개요** 및 **키** 페이지에서 이러한 값을 확인할 수 있습니다.
