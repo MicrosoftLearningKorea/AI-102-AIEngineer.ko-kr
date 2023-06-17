@@ -4,13 +4,13 @@ lab:
   module: Module 3 - Getting Started with Natural Language Processing
 ---
 
-# <a name="translate-text"></a>텍스트 번역
+# 텍스트 번역
 
 **Translator** 서비스는 언어 간에 텍스트를 번역할 수 있는 Cognitive Service입니다.
 
 회사 웹 사이트로 제출된 호텔 리뷰를 살펴보고 분석에 사용되는 언어로는 영어를 표준으로 사용하려는 여행사의 경우를 예로 들어 보겠습니다. 이 회사는 Translator 서비스를 사용해 각 리뷰가 작성된 언어를 확인하고 영어로 작성되지 않은 리뷰는 작성 시에 사용했던 원본 언어에 관계없이 영어로 번역할 수 있습니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -36,7 +36,7 @@ lab:
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 키 중 하나, 그리고 이 페이지에서 서비스가 프로비전된 위치가 필요합니다.
 
-## <a name="prepare-to-use-the-translator-service"></a>Translator 서비스 사용 준비
+## Translator 서비스 사용 준비
 
 이 연습에서는 Translator REST API를 사용해 호텔 리뷰를 번역하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -72,7 +72,7 @@ lab:
 
 6. 오류가 발생하지 않고 코드가 실행되어 **reviews** 폴더에 있는 각 리뷰 텍스트 파일의 내용이 표시되는지 확인합니다. 애플리케이션은 현재 Translator 서비스를 사용하고 있지 않습니다. 다음 절차에서 애플리케이션이 서비스를 사용하도록 수정합니다.
 
-## <a name="detect-language"></a>언어 검색
+## 언어 검색
 
 Translator 서비스는 번역할 텍스트의 원본 언어를 자동 감지할 수 있습니다. 또한 텍스트가 작성된 언어를 명시적으로 감지할 수도 있습니다.
 
@@ -155,7 +155,7 @@ language = response[0]["language"]
 
 4. 출력을 확인합니다. 이번에는 각 리뷰의 언어가 식별되었습니다.
 
-## <a name="translate-text"></a>텍스트 번역
+## 텍스트 번역
 
 이제 애플리케이션이 리뷰가 작성된 언어를 확인할 수 있습니다. 따라서 Translator 서비스를 사용해 영어 이외의 언어로 작성된 리뷰를 영어로 번역할 수 있습니다.
 
@@ -240,6 +240,6 @@ translation = response[0]["translations"][0]["text"]
 
 4. 출력을 확인합니다. 영어가 아닌 리뷰가 영어로 번역되었습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **Translator** 서비스를 사용하는 방법에 대한 자세한 내용은 [Translator 설명서](https://docs.microsoft.com/azure/cognitive-services/translator/)를 참조하세요.

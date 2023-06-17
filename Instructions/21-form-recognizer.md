@@ -4,13 +4,13 @@ lab:
   module: Module 11 - Reading Text in Images and Documents
 ---
 
-# <a name="extract-data-from-forms"></a>양식에서 데이터 추출 
+# 양식에서 데이터 추출 
 
 현재 기업이 직원에게 주문 시트를 수동으로 구매하고 데이터베이스에 데이터를 입력할 것을 요구한다고 가정합니다. AI 서비스를 활용하여 데이터 항목 프로세스를 개선하려고 합니다. 데이터베이스를 자동으로 업데이트하는 데 사용할 수 있는 구조적 데이터를 생성하고 양식을 읽는 기계 학습 모델을 빌드하기로 합니다.
 
 사용자가 자동화된 데이터 처리 소프트웨어를 빌드하는 데 사용할 수 있는 Cognitive Service는 **Form Recognizer**입니다. 이 소프트웨어는 OCR(광학 인식) 기술을 사용해 양식 문서에서 텍스트, 키/값 쌍 및 테이블을 추출할 수 있습니다. Form Recognizer에는 송장, 영수증 및 명함 인식용으로 미리 빌드된 모델이 포함되어 있습니다. 이 서비스에서는 사용자 지정 모델을 학습시키는 기능도 제공합니다. 이 연습에서는 사용자 지정 모델 빌드 과정을 중점적으로 진행합니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 과정용 코드 리포지토리를 아직 복제하지 않았으면 복제해야 합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-a-form-recognizer-resource"></a>Form Recognizer 리소스 만들기
+## Form Recognizer 리소스 만들기
 
 Form Recognizer 서비스를 사용하려면 해당 Azure 구독의 Form Recognizer 또는 Cognitive Services 리소스가 필요합니다. 여기서는 Azure Portal을 사용하여 리소스를 만듭니다.
 
@@ -38,7 +38,7 @@ Form Recognizer 서비스를 사용하려면 해당 Azure 구독의 Form Recogni
 
 3. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 나중에 코드에서 액세스를 관리하려면 이 페이지에 표시되는 **키** 중 하나와 **엔드포인트**가 필요합니다. 
 
-## <a name="gather-documents-for-training"></a>학습용 문서 수집
+## 학습용 문서 수집
 
 ![송장 이미지](../21-custom-form/sample-forms/Form_1.jpg)  
 
@@ -101,7 +101,7 @@ setup
 
 15. Azure Portal에서 리소스 그룹을 새로 고쳐 방금 만든 Azure Storage 계정이 포함되어 있는지 확인합니다. 스토리지 계정을 열고 왼쪽 창에서 **스토리지 브라우저**를 선택합니다. 그런 다음 스토리지 브라우저에서 **Blob 컨테이너**를 확장하고 **sampleforms** 컨테이너를 선택하여 로컬 **21-custom-form/sample-forms** 폴더에서 파일이 업로드되었는지 확인합니다.
 
-## <a name="train-a-model-using-the-form-recognizer-sdk"></a>Form Recognizer SDK를 사용하여 모델 학습
+## Form Recognizer SDK를 사용하여 모델 학습
 
 이제 **.jpg** 및 **.json** 파일을 사용하여 모델을 학습시킵니다.
 
@@ -169,7 +169,7 @@ python train-model.py
 12. 프로그램이 종료될 때까지 기다렸다가 모델 출력을 검토합니다.
 13. 터미널 출력에서 모델 ID를 작성합니다. 이는 랩의 다음 부분에 필요합니다. 
 
-## <a name="test-your-custom-form-recognizer-model"></a>사용자 지정 Form Recognizer 모델 테스트 
+## 사용자 지정 Form Recognizer 모델 테스트 
 
 1. **21-custom-form** 폴더 내의 선호하는 언어(**C-Sharp** 또는 **Python**) 하위 폴더에서 **test-model** 폴더를 확장합니다.
 
@@ -232,6 +232,6 @@ python test-model.py
     
 8. 출력을 보고 모델의 출력이 "CompanyPhoneNumber" 및 "DatedAs"와 같은 필드 이름을 제공하는 방법에 대해 살펴봅니다.   
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Form Recognizer 서비스를 사용하는 방법에 대한 자세한 내용은 [Form Recognizer 설명서](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/)를 참조하세요.

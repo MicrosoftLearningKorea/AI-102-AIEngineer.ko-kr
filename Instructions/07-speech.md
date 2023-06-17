@@ -4,7 +4,7 @@ lab:
   module: Module 4 - Building Speech-Enabled Applications
 ---
 
-# <a name="recognize-and-synthesize-speech"></a>음성 인식 및 합성
+# 음성 인식 및 합성
 
 Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성 관련 기능을 제공합니다.
 
@@ -15,7 +15,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 
 **참고**: 이 연습을 진행하려면 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다. 최상의 경험을 위해서는 마이크도 필요합니다. 일부 호스트 가상 환경에서는 로컬 마이크로부터 오디오를 캡처할 수 있지만, 이 기능이 작동하지 않거나 마이크가 아예 없는 경우에는 제공된 오디오 파일을 음성 입력으로 사용할 수 있습니다. 마이크를 사용하는지 아니면 오디오 파일을 사용하는지에 따라 서로 다른 옵션을 선택해야 하므로 주의하여 지침을 따르세요.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
@@ -26,7 +26,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 
     **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -41,7 +41,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 키 중 하나, 그리고 이 페이지에서 서비스가 프로비전된 위치가 필요합니다.
 
-## <a name="prepare-to-use-the-speech-service"></a>Speech 서비스 사용 준비
+## Speech 서비스 사용 준비
 
 이 연습에서는 Speech SDK를 사용해 음성을 인식하고 합성하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -53,13 +53,13 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.28.0
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech==1.28.0
     ```
 
 3. **speaking-clock** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
@@ -126,11 +126,11 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 
 7. C#을 사용 중인 경우 비동기 메서드의 **await** 연산자 사용 관련 경고는 무시해도 됩니다. 뒷부분에서 해당 부분을 수정할 것입니다. 이 코드는 애플리케이션이 사용할 Speech 서비스 리소스의 지역을 표시합니다.
 
-## <a name="recognize-speech"></a>음성 인식
+## 음성 인식
 
 Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만들었으므로 **Speech-to-text** API를 사용하여 음성을 인식한 다음 텍스트로 필사할 수 있습니다.
 
-### <a name="if-you-have-a-working-microphone"></a>작동하는 마이크가 있는 경우
+### 작동하는 마이크가 있는 경우
 
 1. 프로그램의 **Main** 함수에서 코드가 **TranscribeCommand** 함수를 사용해 음성 입력을 수락함을 확인합니다.
 2. **TranscribeCommand** 함수의 **음성 인식 구성** 주석 아래에 다음의 적절한 코드를 추가하여 **SpeechRecognizer** 클라이언트를 만듭니다. 이 클라이언트를 사용하면 기본 시스템 마이크를 사용해 음성을 인식하고 필사할 수 있습니다.
@@ -155,7 +155,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
 3. 이제 아래의 **필사된 명령을 처리하기 위한 코드 추가** 섹션으로 넘어갑니다.
 
-### <a name="alternatively-use-audio-input-from-a-file"></a>또는 파일에서 오디오 입력 사용
+### 또는 파일에서 오디오 입력 사용
 
 1. 터미널 차에서 다음 명령을 입력하여 오디오 파일을 재생하는 데 사용할 수 있는 라이브러리를 설치합니다.
 
@@ -208,7 +208,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     ```
 
-### <a name="add-code-to-process-the-transcribed-command"></a>필사된 명령을 처리하기 위한 코드 추가
+### 필사된 명령을 처리하기 위한 코드 추가
 
 1. **TranscribeCommand** 함수의 **음성 입력 처리** 주석 아래에 다음 코드를 추가하여 음성 입력을 청취합니다. 이때 명령을 반환하는 함수 끝부분의 코드를 바꾸지 않도록 주의하세요.
 
@@ -270,7 +270,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
     SpeechRecognizer에서 오류가 발생하면 "Cancelled" 결과가 생성됩니다. 그러면 애플리케이션의 코드가 오류 메시지를 표시합니다. 오류의 원인은 구성 파일의 지역이나 키가 정확하지 않기 때문일 가능성이 가장 높습니다.
 
-## <a name="synthesize-speech"></a>음성 합성
+## 음성 합성
 
 음성 시계 애플리케이션은 음성 입력을 수락하지만 실제로 시간을 직접 말로 알려 주지는 않습니다. 이제 음성을 합성하는 코드를 추가하여 응답 방식을 수정해 보겠습니다.
 
@@ -333,7 +333,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
 5. 메시지가 표시되면 마이크에 "what time is it"이라고 또렷하게 말합니다. 그러면 프로그램이 음성으로 시간을 알려 줍니다.
 
-## <a name="use-a-different-voice"></a>다른 음성 사용
+## 다른 음성 사용
 
 음성 시계 애플리케이션은 기본 음성을 사용하는데, 이 음성을 변경할 수 있습니다. Speech 서비스에서는 광범위한 *표준* 음성은 물론 인간의 음성과 더욱 비슷한 *신경망* 음성도 지원합니다. *사용자 지정* 음성을 만들 수도 있습니다.
 
@@ -373,7 +373,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
 3. 메시지가 표시되면 마이크에 "what time is it"이라고 또렷하게 말합니다. 그러면 프로그램이 지정된 음성으로 시간을 알려 줍니다.
 
-## <a name="use-speech-synthesis-markup-language"></a>Speech Synthesis Markup Language 사용
+## Speech Synthesis Markup Language 사용
 
 SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통해 음성 합성 방식을 사용자 지정할 수 있습니다.
 
@@ -431,6 +431,6 @@ SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통�
 
 3. 메시지가 표시되면 마이크에 "what time is it"이라고 또렷하게 말합니다. 프로그램이 SSML에 지정된 음성으로 시간을 알려 준 다음(SpeechConfig에 지정된 음성이 재정의됨) 잠시 후에 종료하려면 "Time to end this lab!"을 말하라고 합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **음성 텍스트 변환** 및 **텍스트 음성 변환** API 사용에 대한 자세한 내용은 [음성 텍스트 변환 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-to-text) 및 [텍스트 음성 변환 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-text-to-speech)를 참조하세요.

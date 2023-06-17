@@ -1,16 +1,16 @@
 ---
 lab:
-  title: Speech 및 Language Understanding 서비스 사용
+  title: Speech and Language Understanding Services 사용(사용되지 않음)
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="use-the-speech-and-language-understanding-services"></a>Speech 및 Language Understanding 서비스 사용
+# Speech 및 Language Understanding 서비스 사용
 
 Speech 서비스와 Language Understanding 서비스를 통합하면 음성 입력에서 사용자 의도를 지능형으로 확인할 수 있는 애플리케이션을 만들 수 있습니다.
 
 > **참고**: 이 연습은 마이크가 있는 경우에 가장 잘 작동합니다. 일부 호스트 가상 환경에서는 로컬 마이크로부터 오디오를 캡처할 수 있지만, 이 기능이 작동하지 않거나 마이크가 아예 없는 경우에는 제공된 오디오 파일을 음성 입력으로 사용할 수 있습니다. 마이크를 사용하는지 아니면 오디오 파일을 사용하는지에 따라 서로 다른 옵션을 선택해야 하므로 주의하여 지침을 따르세요.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ Speech 서비스와 Language Understanding 서비스를 통합하면 음성 입�
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-language-understanding-resources"></a>Language Understanding 리소스 만들기
+## Language Understanding 리소스 만들기
 
 Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포함되어 있으면 이 연습에서 해당 리소스를 사용할 수 있습니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 리소스를 만듭니다.
 
@@ -31,14 +31,16 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
     - **구독**: ‘Azure 구독’
     - **리소스 그룹**: 리소스 그룹 선택 또는 만들기(제한된 구독을 사용 중이라면 새 리소스 그룹을 만들 권한이 없을 수도 있으므로 제공된 리소스 그룹 사용)
     - **이름**: *고유 이름 입력*
-    - **작성 위치**: *기본 위치 선택*
-    - **가격 책정 계층 작성**: F0
-    - **예측 위치**: *작성 위치와 <u>동일한 위치</u> 선택* .
-    - **예측 가격 책정 계층**: F0(F0을 사용할 수 없으면 S0 선택)
+    - **작성 리소스**:
+        - **지역**: *원하는 위치 선택*
+        - **가격 책정 계층 작성**: F0
+    - **예측 리소스**:
+        - **지역**: *작성 <u>위치와 동일한 위치</u> 선택*
+        - **예측 가격 책정 계층**: F0(F0을 사용할 수 없으면 S0 선택)
 
 3. 리소스를 만들 때까지 기다렸다가 두 개의 Language Understanding 리소스가 프로비저닝되었는지 확인합니다. 하나는 작성용이고 다른 하나는 예측용입니다. 이 항목을 생성된 리소스 그룹으로 이동하여 두 항목을 모두 볼 수 있습니다.
 
-## <a name="prepare-a-language-understanding-app"></a>Language Understanding 앱 준비
+## Language Understanding 앱 준비
 
 이전 연습에서 만든 **Clock** 앱이 이미 있으면 Language Understanding 포털 `https://www.luis.ai`에서 해당 앱을 엽니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 앱을 만듭니다.
 
@@ -48,7 +50,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 프로젝트 폴더에서 이 연습용 랩 파일이 포함된 **11-luis-speech** 하위 폴더로 이동하여 **Clock.lu**를 선택합니다. 그런 다음 clock 앱의 고유한 이름을 지정합니다.
 4. 효과적인 Language Understanding 앱을 만들기 위한 팁이 포함된 패널이 표시되면 닫습니다.
 
-## <a name="train-and-publish-the-app-with-speech-priming"></a>*음성 프라이밍*을 사용하여 앱 학습 및 게시
+## *음성 프라이밍*을 사용하여 앱 학습 및 게시
 
 1. 앱을 아직 학습시키지 않았으면 Language Understanding 포털 위쪽에서 **학습**을 선택하여 앱을 학습시킵니다.
 2. Language Understanding 포털의 오른쪽 위에서 **게시**를 선택합니다. 그런 다음 **프로덕션 슬롯**을 선택하고 설정을 변경하여 **음성 프라이밍**을 사용하도록 설정합니다(이렇게 하면 음성 인식 성능이 개선됨).
@@ -57,7 +59,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 5. **Azure 리소스** 페이지의 **예측 리소스** 아래에 예측 리소스가 나열되어 있지 않으면 Azure 구독의 예측 리소스를 추가합니다.
 6. 예측 리소스의 **기본 키**, **보조 키** 및 **위치**(엔드포인트 <u>아님</u>!)를 확인합니다. Speech SDK 클라이언트 애플리케이션이 예측 리소스에 연결하여 인증을 하려면 위치와 키 중 하나가 필요합니다.
 
-## <a name="configure-a-client-application-for-language-understanding"></a>Language Understanding용 클라이언트 애플리케이션 구성
+## Language Understanding용 클라이언트 애플리케이션 구성
 
 이 연습에서는 음성 입력을 받아들이고 Language Understanding 앱을 사용하여 사용자의 의도를 예측하는 클라이언트 애플리케이션을 만듭니다.
 
@@ -70,7 +72,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 
     구성 파일을 열고 파일에 포함되어 있는 구성 값을 업데이트하여 Language Understanding 앱의 **앱 ID**, **위치**(예: *eastus*. 전체 엔드포인트 <u>아님</u>), 그리고 예측 리소스의 **키** 중 하나를 포함합니다(Language Understanding 포털의 앱 **관리** 페이지에서 확인 가능).
 
-## <a name="install-sdk-packages"></a>SDK 패키지 설치
+## SDK 패키지 설치
 
 Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로그래밍 언어에 맞는 Speech SDK 패키지를 설치해야 합니다.
 
@@ -139,13 +141,13 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     from playsound import playsound
     ```
 
-## <a name="create-an-intentrecognizer"></a>*IntentRecognizer* 만들기
+## *IntentRecognizer* 만들기
 
 **IntentRecognizer** 클래스는 음성 입력으로부터 Language Understanding 예측을 가져오는 데 사용할 수 있는 클라이언트 개체를 제공합니다.
 
 1. **Main** 함수에서 구성 파일의 앱 ID, 예측 지역 및 키를 로드하는 코드가 이미 제공되어 있음을 확인합니다. 그런 다음에 **Speech 서비스를 구성하고 의도 인식기 가져오기** 주석을 찾고, 마이크르 사용할 것인지 아니면 음성 입력용 오디오 파일을 사용할 것인지에 따라 다음 코드를 추가합니다.
 
-    ### <a name="if-you-have-a-working-microphone"></a>**작동하는 마이크가 있는 경우:**
+    ### **작동하는 마이크가 있는 경우:**
 
     **C#**
 
@@ -165,7 +167,7 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
     ```
 
-    ### <a name="if-you-need-to-use-an-audio-file"></a>**오디오 파일을 사용해야 하는 경우:**
+    ### **오디오 파일을 사용해야 하는 경우:**
 
     **C#**
 
@@ -191,7 +193,7 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
     ```
 
-## <a name="get-a-predicted-intent-from-spoken-input"></a>음성 입력에서 예측한 의도 가져오기
+## 음성 입력에서 예측한 의도 가져오기
 
 이제 Speech SDK를 사용하여 음성 입력에서 예측한 의도를 가져오는 코드를 구현할 수 있습니다.
 
@@ -432,7 +434,7 @@ else:
         print('Try asking me for the time, the day, or the date.')
 ```
 
-## <a name="run-the-client-application"></a>클라이언트 애플리케이션 실행
+## 클라이언트 애플리케이션 실행
 
 1. 변경 내용을 저장하고 **speaking-clock-client** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
@@ -464,6 +466,6 @@ else:
 
 > **참고**: 여기서는 애플리케이션에 의도적으로 단순한 논리가 사용되었으며 몇 가지 제한이 적용되었습니다. 하지만 이 애플리케이션으로도 Language Understanding 모델이 Speech SDK를 사용하여 음성 입력에서 의도를 예측하는 기능은 충분히 테스트할 수 있습니다. *MM/DD/YYYY* 형식으로 날짜를 말하기가 어려워서 특정 날짜 엔터티로 **GetDay** 의도를 인식하기가 어려울 수는 있습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Speech와 Language Understanding의 통합에 대해 자세히 알아보려면 [Speech 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/quickstarts/intent-recognition)를 참조하세요.

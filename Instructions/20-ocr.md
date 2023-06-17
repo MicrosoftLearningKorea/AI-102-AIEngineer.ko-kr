@@ -4,11 +4,11 @@ lab:
   module: Module 11 - Reading Text in Images and Documents
 ---
 
-# <a name="read-text-in-images"></a>이미지에서 텍스트 읽기
+# 이미지에서 텍스트 읽기
 
 OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는 Computer Vision 하위 서비스입니다. **Computer Vision** 서비스에서는 텍스트 읽기용 API 2개를 제공합니다. 이 연습에서는 해당 API를 살펴봅니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 과정용 코드 리포지토리를 아직 복제하지 않았으면 복제해야 합니다.
 
@@ -19,7 +19,7 @@ OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -34,7 +34,7 @@ OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
-## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDK 사용 준비
+## Computer Vision SDK 사용 준비
 
 이 연습에서는 Computer Vision SDK를 사용해 텍스트를 읽는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -104,116 +104,15 @@ cvClient = new ComputerVisionClient(credentials)
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
-    
-## <a name="use-the-ocr-api"></a>OCR API 사용
 
-**OCR** API, 즉 광학 인식 API는 *.jpg*, *.png*, *.gif* 및 *.bmp* 형식 이미지에 인쇄되어 있는 소량~중간 정도의 텍스트를 읽는 작업용으로 최적화되어 있습니다. 이 API는 광범위한 언어를 지원하며, 이미지의 텍스트를 읽을 수 있을 뿐 아니라 각 텍스트 영역의 방향을 확인하여 이미지 기준 텍스트 회전 각도 관련 정보도 반환할 수 있습니다.
+## 읽기 API를 사용하여 이미지에서 텍스트 읽기
 
-1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **1**을 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextOcr** 함수를 호출하여 이미지 파일의 경로를 전달합니다.
-2. **read-text/images** 폴더에서 **Lincoln.jpg**를 열어 코드가 처리할 이미지를 표시합니다.
-3. 코드 파일로 돌아와서 **GetTextOcr** 함수를 찾은 다음 콘솔에 메시지를 인쇄하는 기존 코드 아래에 다음 코드를 추가합니다.
-
-**C#**
-
-```C#
-// Use OCR API to read text in image
-using (var imageData = File.OpenRead(imageFile))
-{    
-    var ocrResults = await cvClient.RecognizePrintedTextInStreamAsync(detectOrientation:false, image:imageData);
-
-    // Prepare image for drawing
-    Image image = Image.FromFile(imageFile);
-    Graphics graphics = Graphics.FromImage(image);
-    Pen pen = new Pen(Color.Magenta, 3);
-
-    foreach(var region in ocrResults.Regions)
-    {
-        foreach(var line in region.Lines)
-        {
-            // Show the position of the line of text
-            int[] dims = line.BoundingBox.Split(",").Select(int.Parse).ToArray();
-            Rectangle rect = new Rectangle(dims[0], dims[1], dims[2], dims[3]);
-            graphics.DrawRectangle(pen, rect);
-
-            // Read the words in the line of text
-            string lineText = "";
-            foreach(var word in line.Words)
-            {
-                lineText += word.Text + " ";
-            }
-            Console.WriteLine(lineText.Trim());
-        }
-    }
-
-    // Save the image with the text locations highlighted
-    String output_file = "ocr_results.jpg";
-    image.Save(output_file);
-    Console.WriteLine("Results saved in " + output_file);
-}
-```
-
-**Python**
-
-```Python
-# Use OCR API to read text in image
-with open(image_file, mode="rb") as image_data:
-    ocr_results = cv_client.recognize_printed_text_in_stream(image_data)
-
-# Prepare image for drawing
-fig = plt.figure(figsize=(7, 7))
-img = Image.open(image_file)
-draw = ImageDraw.Draw(img)
-
-# Process the text line by line
-for region in ocr_results.regions:
-    for line in region.lines:
-
-        # Show the position of the line of text
-        l,t,w,h = list(map(int, line.bounding_box.split(',')))
-        draw.rectangle(((l,t), (l+w, t+h)), outline='magenta', width=5)
-
-        # Read the words in the line of text
-        line_text = ''
-        for word in line.words:
-            line_text += word.text + ' '
-        print(line_text.rstrip())
-
-# Save the image with the text locations highlighted
-plt.axis('off')
-plt.imshow(img)
-outputfile = 'ocr_results.jpg'
-fig.savefig(outputfile)
-print('Results saved in', outputfile)
-```
-
-4. **GetTextOcr** 함수에 추가한 코드를 살펴봅니다. 이 코드는 이미지 파일에서 인쇄된 텍스트 영역을 감지한 다음 각 영역에서 텍스트 줄을 추출하고 이미지의 텍스트 줄 위치를 강조 표시합니다. 그런 후에 각 줄의 단어를 추출하여 인쇄합니다.
-5. 변경 내용을 저장하고 **read-text** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
-
-**C#**
-
-```
-dotnet run
-```
-
-이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 이러한 메시지는 무시해도 됩니다.
-
-**Python**
-
-```
-python read-text.py
-```
-
-6. 메시지가 표시되면 **1**을 입력하고 출력을 살펴봅니다. 출력은 이미지에서 추출된 텍스트입니다.
-7. 코드 파일과 같은 폴더에 생성된 **ocr_results.jpg** 파일을 표시하여 이미지에서 주석이 추가된 텍스트 줄을 확인합니다.
-
-## <a name="use-the-read-api"></a>Read API 사용
-
-**Read** API는 OCR API에 비해 최신 버전의 텍스트 인식 모델을 사용하며, 텍스트가 많이 포함된 큰 이미지에서 텍스트를 인식하는 성능이 더 우수합니다. 또한 *.pdf* 파일에서 텍스트를 추출하는 작업도 지원하며, 여러 언어의 인쇄된 텍스트와 필기 텍스트를 모두 인식할 수 있습니다.
+**Read** API는 최신 텍스트 인식 모델을 사용하며 일반적으로 많은 텍스트를 포함하지만 텍스트 양에 대해 작동하는 더 큰 이미지에 대해 더 잘 수행됩니다. 또한 *.pdf* 파일에서 텍스트를 추출하는 작업도 지원하며, 여러 언어의 인쇄된 텍스트와 필기 텍스트를 모두 인식할 수 있습니다.
 
 **Read** API는 비동기 작업 모델을 사용합니다. 이 모델에서는 텍스트 인식 시작 요청이 제출되며, 해당 요청에서 반환된 작업 ID를 이후 작업에서 사용하여 진행률을 확인하고 결과를 검색할 수 있습니다.
 
-1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **2**를 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextRead** 함수를 호출하여 PDF 문서 파일의 경로를 전달합니다.
-2. **read-text/images** 폴더에서 **Rome.pdf**를 마우스 오른쪽 단추로 클릭하고 **파일 탐색기에 표시**를 선택합니다. 그런 다음 파일 탐색기에서 PDF 파일을 열어 표시합니다.
+1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **1**을 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextRead** 함수를 호출하여 이미지 파일의 경로를 전달합니다.
+2. **읽기-텍스트/이미지** 폴더에서 **Lincoln.jpg** 클릭하여 코드에서 처리할 파일을 봅니다.
 3. Visual Studio Code의 코드 파일로 돌아와서 **GetTextRead** 함수를 찾은 다음 콘솔에 메시지를 인쇄하는 기존 코드 아래에 다음 코드를 추가합니다.
 
 **C#**
@@ -238,7 +137,7 @@ using (var imageData = File.OpenRead(imageFile))
     while ((results.Status == OperationStatusCodes.Running ||
             results.Status == OperationStatusCodes.NotStarted));
 
-    // If the operation was successfuly, process the text line by line
+    // If the operation was successfully, process the text line by line
     if (results.Status == OperationStatusCodes.Succeeded)
     {
         var textUrlFileResults = results.AnalyzeResult.ReadResults;
@@ -247,6 +146,9 @@ using (var imageData = File.OpenRead(imageFile))
             foreach (Line line in page.Lines)
             {
                 Console.WriteLine(line.Text);
+                
+                // Uncomment the following line if you'd like to see the bounding box 
+                //Console.WriteLine(line.BoundingBox);
             }
         }
     }
@@ -271,13 +173,15 @@ with open(image_file, mode="rb") as image_data:
             break
         time.sleep(1)
 
-    # If the operation was successfuly, process the text line by line
+    # If the operation was successfully, process the text line by line
     if read_results.status == OperationStatusCodes.succeeded:
         for page in read_results.analyze_result.read_results:
             for line in page.lines:
                 print(line.text)
+                # Uncomment the following line if you'd like to see the bounding box 
+                #print(line.bounding_box)
 ```
-    
+
 4. **GetTextRead** 함수에 추가한 코드를 살펴봅니다. 이 코드는 읽기 작업 요청을 제출한 다음 작업이 완료될 때까지 상태를 반복 확인합니다. 작업이 정상적으로 완료된 경우 코드는 각 페이지와 각 페이지 줄에서 차례로 반복 실행되어 결과를 처리합니다.
 5. 변경 내용을 저장하고 **read-text** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
@@ -293,9 +197,30 @@ dotnet run
 python read-text.py
 ```
 
+6. 메시지가 표시되면 **1**을 입력하고 출력을 살펴봅니다. 출력은 이미지에서 추출된 텍스트입니다.
+7. 원하는 경우 **GetTextRead** 에 추가한 코드로 돌아가서 끝에 있는 중첩된 `for` 루프에서 주석을 찾고, 마지막 줄의 주석을 제거하고, 파일을 저장하고, 위의 5단계와 6단계를 다시 실행하여 각 줄의 경계 상자를 확인합니다. 계속 진행하기 전에 해당 줄을 다시 주석으로 달고 파일을 저장해야 합니다.
+
+## Read API를 사용하여 문서에서 텍스트 읽기
+
+1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **2**를 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **GetTextRead** 함수를 호출하여 PDF 문서 파일의 경로를 전달합니다.
+2. **read-text/images** 폴더에서 **Rome.pdf**를 마우스 오른쪽 단추로 클릭하고 **파일 탐색기에 표시**를 선택합니다. 그런 다음 파일 탐색기에서 PDF 파일을 열어 표시합니다.
+3. **읽기 텍스트** 폴더의 통합 터미널로 돌아가서 다음 명령을 입력하여 프로그램을 실행합니다.
+
+**C#**
+
+```
+dotnet run
+```
+
+**Python**
+
+```
+python read-text.py
+```
+
 6. 메시지가 표시되면 **2**를 입력하고 출력을 살펴봅니다. 출력은 문서에서 추출된 텍스트입니다.
 
-## <a name="read-handwritten-text"></a>필기 텍스트 읽기
+## 필기 텍스트 읽기
 
 **Read** API는 인쇄된 텍스트뿐 아니라 영어 필기 텍스트도 추출할 수 있습니다.
 
@@ -317,6 +242,6 @@ python read-text.py
 
 4. 메시지가 표시되면 **3**을 입력하고 출력을 살펴봅니다. 출력은 문서에서 추출된 텍스트입니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **Computer Vision** 서비스를 사용하여 텍스트를 읽는 방법에 대한 자세한 내용은 [Computer Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text)를 참조하세요.

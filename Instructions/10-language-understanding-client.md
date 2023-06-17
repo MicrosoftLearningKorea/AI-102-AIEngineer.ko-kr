@@ -1,14 +1,14 @@
 ---
 lab:
-  title: Language Understanding 클라이언트 애플리케이션 만들기
+  title: Language Understanding 클라이언트 애플리케이션 만들기(사용되지 않음)
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="create-a-language-understanding-client-application"></a>Language Understanding 클라이언트 애플리케이션 만들기
+# Language Understanding 클라이언트 애플리케이션 만들기
 
 Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱을 정의할 수 있습니다. 애플리케이션은 이 모델을 통해 사용자의 자연어 입력을 해석하고, 사용자의 *의도*(사용자가 달성하려는 목표)를 예측하고, 해당 의도를 적용해야 하는 *엔터티*를 식별할 수 있습니다. REST 인터페이스를 통해 Language Understanding 앱을 직접 사용하거나 언어별 SDK(소프트웨어 개발 키트)를 통해 앱을 사용하는 클라이언트 애플리케이션을 만들 수 있습니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -19,7 +19,7 @@ Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱�
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-language-understanding-resources"></a>Language Understanding 리소스 만들기
+## Language Understanding 리소스 만들기
 
 Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포함되어 있으면 이 연습에서 해당 리소스를 사용할 수 있습니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 리소스를 만듭니다.
 
@@ -36,7 +36,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 
 3. 리소스를 만들 때까지 기다렸다가 두 개의 Language Understanding 리소스가 프로비저닝되었는지 확인합니다. 하나는 작성용이고 다른 하나는 예측용입니다. 이 항목을 생성된 리소스 그룹으로 이동하여 두 항목을 모두 볼 수 있습니다.
 
-## <a name="import-train-and-publish-a-language-understanding-app"></a>Language Understanding 앱 가져오기, 학습 및 게시
+## Language Understanding 앱 가져오기, 학습 및 게시
 
 이전 연습에서 만든 **Clock** 앱이 이미 있으면 이 연습에서 해당 앱을 사용할 수 있습니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 앱을 만듭니다.
 
@@ -52,7 +52,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 9. **Azure 리소스** 페이지의 **예측 리소스** 아래에 예측 리소스가 나열되어 있지 않으면 Azure 구독의 예측 리소스를 추가합니다.
 10. 예측 리소스의 **기본 키**, **보조 키** 및 **엔드포인트 URL**을 확인합니다. 클라이언트 애플리케이션이 예측 리소스에 연결하여 인증을 하려면 엔드포인트와 키 중 하나가 필요합니다.
 
-## <a name="prepare-to-use-the-language-understanding-sdk"></a>Language Understanding SDK 사용 준비
+## Language Understanding SDK 사용 준비
 
 이 연습에서는 Clock Language Understanding 앱을 사용하여 사용자 입력에서 의도를 예측하고 적절하게 응답을 하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -106,7 +106,7 @@ from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-## <a name="get-a-prediction-from-the-language-understanding-app"></a>Language Understanding 앱에서 예측 가져오기
+## Language Understanding 앱에서 예측 가져오기
 
 이제 SDK를 사용하여 Language Understanding 앱에서 예측을 가져오는 코드를 구현할 수 있습니다.
 
@@ -316,6 +316,6 @@ python clock-client.py
 
 6. 테스트를 완료한 후 *quit*을 입력합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Language Understanding 클라이언트 만들기에 대해 자세히 알아보려면 [개발자 설명서](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)를 참조하세요.

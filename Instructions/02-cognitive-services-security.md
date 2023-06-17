@@ -4,13 +4,13 @@ lab:
   module: Module 2 - Developing AI Apps with Cognitive Services
 ---
 
-# <a name="manage-cognitive-services-security"></a>Cognitive Services 보안 관리
+# Cognitive Services 보안 관리
 
 모든 애플리케이션에서 보안은 중요한 고려 사항입니다. 개발자는 Cognitive Services 등의 리소스가 필요한 사용자만 해당 리소스에 액세스할 수 있도록 제한해야 합니다.
 
 일반적으로는 인증 키를 통해Cognitive Services 액세스를 제어합니다. 인증 키는 Cognitive Services 리소스를 처음 만들 때 생성됩니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -35,7 +35,7 @@ lab:
 3. 필요한 확인란을 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 
-## <a name="manage-authentication-keys"></a>인증 키 관리
+## 인증 키 관리
 
 Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. 이러한 키는 Azure Portal에서 관리할 수도 있고 Azure CLI(명령줄 인터페이스)를 사용하여 관리할 수도 있습니다.
 
@@ -102,11 +102,11 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 > **팁**: 이 연습에서는 **--resource-group**과 같은 Azure CLI 매개 변수의 전체 이름을 사용했습니다.  **-g** 등의 더 짧은 이름을 사용하면 명령을 더 간단하게 작성할 수도 있습니다(하지만 명령을 이해하기는 좀 더 어려울 수도 있음).  각 Cognitive Services CLI 명령용 매개 변수 옵션의 목록은 [Cognitive Services CLI 명령 참조](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)에 나와 있습니다.
 
-## <a name="secure-key-access-with-azure-key-vault"></a>Azure Key Vault를 사용하여 키 액세스 보호
+## Azure Key Vault를 사용하여 키 액세스 보호
 
 인증용 키를 사용하면 Cognitive Services를 사용하는 애플리케이션을 개발할 수 있습니다. 하지만 이 경우에는 애플리케이션 코드가 키를 가져올 수 있어야 합니다. 애플리케이션이 배포되는 구성 파일이나 환경 변수에 키를 저장하는 옵션을 사용할 수도 있습니다. 그러나 이 방식을 사용하면 키가 무단 액세스에 취약해집니다. Azure에서 애플리케이션을 개발할 때 사용 가능한 더 효율적인 방식은 Azure Key Vault에 키를 안전하게 저장한 다음 *관리 ID*(애플리케이션 자체에 사용되는 사용자 계정)를 통해 키 액세스 권한을 제공하는 것입니다.
 
-### <a name="create-a-key-vault-and-add-a-secret"></a>키 자격 증명 모음 만들기 및 비밀 추가
+### 키 자격 증명 모음 만들기 및 비밀 추가
 
 먼저 키 자격 증명 모음을 만들고 Cognitive Services 키의 *비밀*을 추가해야 합니다.
 
@@ -118,13 +118,13 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
     - **지역**: Cognitive Service 리소스와 같은 지역
     - **가격 책정 계층**: 표준
 3. 배포가 완료될 때까지 기다렸다가 키 자격 증명 모음 리소스로 이동합니다.
-4. 왼쪽 탐색 창의 설정 섹션에서 **비밀**을 선택합니다.
+4. 왼쪽 탐색 창에서 **비밀** (개체 섹션)을 선택합니다.
 5. **+ 생성/가져오기**를 선택하고 다음 설정을 사용하여 새 비밀을 추가합니다.
     - **업로드 옵션**: 수동
     - **이름**: Cognitive-Services-Key *(뒷부분에서 이 이름을 기준으로 비밀을 검색하는 코드를 실행할 것이므로 이 이름을 정확하게 사용해야 함)*
     - **값**: **key1** Cognitive Services 키
 
-### <a name="create-a-service-principal"></a>서비스 주체 만들기
+### 서비스 주체 만들기
 
 키 자격 증명 모음의 비밀에 액세스하려면 애플리케이션이 비밀 액세스 권한이 있는 서비스 주체를 사용해야 합니다. Azure CLI(명령줄 인터페이스)를 사용하여 서비스 주체를 만들고, 해당 개체 ID를 찾고, Azure Vault의 비밀에 대한 액세스 권한을 부여합니다.
 
@@ -150,7 +150,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 **appId**, **password** 및 **tenant** 값은 뒷부분에서 필요하므로 적어 두세요(이 터미널을 닫으면 암호를 검색할 수가 없으므로 값을 지금 적어 두어야 합니다. 나중에 필요한 값을 찾을 수 있도록 Visual Studio Code에서 새 텍스트 파일에 출력을 붙여넣을 수 있습니다).
 
-2. 서비스 주체의 **개체 ID**를 가져오려면 다음 Azure CLI 명령을 실행하여 *&lt;appId&gt;* 를 서비스 주체의 앱 ID 값으로 바꿉니다.
+2. 서비스 주체의 **개체 ID**를 가져오려면 다음 Azure CLI 명령을 실행하여 *&lt;appId&gt;* 를 서비스 주체의 앱 ID 값으로 바꿉니다. 다음 명령을 실행해도 응답이 없는 경우 다른 버전의 Azure CLI를 사용할 수 있습니다. 가 이면 을 로 `id` 바꿉다`objectId`.
 
     ```
     az ad sp show --id <appId> --query objectId --out tsv
@@ -162,7 +162,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
     az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
     ```
 
-### <a name="use-the-service-principal-in-an-application"></a>애플리케이션에서 서비스 주체 사용
+### 애플리케이션에서 서비스 주체 사용
 
 이제 애플리케이션에서 서비스 주체 ID를 사용할 수 있습니다. 이 ID를 사용하면 애플리케이션이 키 자격 증명 모음의 비밀 Cognitive Services 키에 액세스한 다음 Cognitive Services 리소스에 연결하는 데 해당 키를 사용할 수 있습니다.
 
@@ -226,6 +226,6 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 6. 메시지가 표시되면 텍스트를 입력하고 서비스가 감지하는 언어를 검토합니다. 예를 들어, “Hello”, “Bonjour”, “Hola” 등을 입력해 봅니다.
 7. 애플리케이션 테스트를 완료한 후 "quit"을 입력하여 프로그램을 중지합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Cognitive Services를 보호하는 방법에 대한 자세한 내용은 [Cognitive Services 보안 설명서](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-security)를 참조하세요.

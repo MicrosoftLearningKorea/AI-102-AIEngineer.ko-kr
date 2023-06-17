@@ -4,11 +4,11 @@ lab:
   module: Module 9 - Developing Custom Vision Solutions
 ---
 
-# <a name="detect-objects-in-images-with-custom-vision"></a>Custom Vision을 사용하여 이미지의 개체 감지
+# Custom Vision을 사용하여 이미지의 개체 감지
 
 이 연습에서는 Custom Vision 서비스를 사용하여 이미지에서 3가지 과일 클래스(사과, 바나나, 오렌지)을 감지하고 찾을 수 있는 *개체 감지* 모델을 학습시킵니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -19,7 +19,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-custom-vision-resources"></a>Custom Vision 리소스 만들기
+## Custom Vision 리소스 만들기
 
 Azure 구독에 학습 및 예측용 **Custom Vision** 리소스가 이미 포함되어 있으면 이 연습에서 해당 리소스를 사용할 수 있습니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 리소스를 만듭니다.
 
@@ -39,7 +39,7 @@ Azure 구독에 학습 및 예측용 **Custom Vision** 리소스가 이미 포�
 
 > **중요**: 각 리소스에는 자체 *엔드포인트* 및 *키*가 있습니다. 엔드포인트와 키는 코드에서 액세스를 관리하는 데 사용됩니다. 이미지 분류 모델을 학습시키려면 코드가 *학습* 리소스(해당 엔드포인트와 키 포함)를 사용해야 합니다. 그리고 학습된 모델을 사용하여 이미지 클래스를 예측하려면 코드가 *예측* 리소스(해당 엔드포인트와 키 포함)를 사용해야 합니다.
 
-## <a name="create-a-custom-vision-project"></a>Custom Vision 프로젝트 만들기
+## Custom Vision 프로젝트 만들기
 
 개체 감지 모델을 학습시키려면 학습 리소스에 따라 Custom Vision 프로젝트를 만들어야 합니다. 이렇게 하려면 Custom Vision 포털을 사용합니다.
 
@@ -52,7 +52,7 @@ Azure 구독에 학습 및 예측용 **Custom Vision** 리소스가 이미 포�
     - **도메인**: 일반
 3. 프로젝트가 만들어지고 브라우저에서 열릴 때까지 기다립니다.
 
-## <a name="add-and-tag-images"></a>이미지 추가 및 태그 지정
+## 이미지 추가 및 태그 지정
 
 개체 감지 모델을 학습시키려면 모델이 식별할 클래스가 포함된 이미지를 업로드하고, 태그를 지정하여 각 개체 인스턴스에 대한 경계 상자를 나타내야 합니다.
 
@@ -79,7 +79,7 @@ Azure 구독에 학습 및 예측용 **Custom Vision** 리소스가 이미 포�
 
 ![프로젝트의 태그가 지정된 이미지](./images/tagged-images.jpg)
 
-## <a name="use-the-training-api-to-upload-images"></a>교육 API를 사용하여 이미지 업로드
+## 교육 API를 사용하여 이미지 업로드
 
 Custom Vision 포털의 그래픽 도구를 사용하여 이미지에 태그를 지정할 수도 있지만, 대다수 AI 개발 팀은 이미지의 개체 영역 및 태그 관련 정보가 포함된 파일을 생성하는 다른 도구를 사용합니다. 이러한 시나리오에서는 Custom Vision 교육 API를 사용하여 프로젝트에 태그가 지정된 이미지를 업로드할 수 있습니다.
 
@@ -142,7 +142,7 @@ python train-detector.py
 11. 프로그램이 종료될 때까지 기다립니다. 그런 다음 브라우저로 돌아와 Custom Vision 포털에서 프로젝트의 **학습 이미지** 페이지를 확인합니다(필요한 경우 브라우저를 새로 고침).
 12. 새로 태그가 지정된 이미지 몇 개가 프로젝트에 추가되었음을 확인합니다.
 
-## <a name="train-and-test-a-model"></a>모델 학습 및 테스트
+## 모델 학습 및 테스트
 
 프로젝트의 이미지에 태그를 지정했으므로 이제 모델을 학습시킬 준비가 되었습니다.
 
@@ -150,7 +150,7 @@ python train-detector.py
 2. 학습이 완료될 때까지 기다리고(10분 정도 걸릴 수 있음) *정확성*, *리콜* 및 *mAP* 성능 메트릭을 검토합니다. 이러한 메트릭은 분류 모델의 예측 정확도를 측정하며 모두 높아야 합니다.
 3. 페이지의 오른쪽 위에서 **빠른 테스트**를 클릭한 다음, **이미지 URL** 상자에 `https://aka.ms/apple-orange`를 입력하고 생성되는 예측을 확인합니다. 그런 다음, **빠른 테스트** 창을 닫습니다.
 
-## <a name="publish-the-object-detection-model"></a>개체 감지 모델 게시
+## 개체 감지 모델 게시
 
 이제 클라이언트 애플리케이션에서 사용하도록 학습된 모델을 게시할 수 있습니다.
 
@@ -160,7 +160,7 @@ python train-detector.py
 2. **프로젝트 설정** 페이지 왼쪽 위에서 *프로젝트 설정*(&#128065;) 아이콘을 클릭하여 Custom Vision 포털 홈 페이지로 돌아옵니다. 이제 홈 페이지에 프로젝트가 나열됩니다.
 3. Custom Vision 포털 홈 페이지 오른쪽 위의 *설정*(&#9881;) 아이콘을 클릭하여 Custom Vision 서비스의 설정을 확인합니다. 그런 다음 **리소스** 아래에서 “-Prediction”으로 끝나는 예측 리소스(학습 리소스 <u>아님</u>)를 찾아 **키** 및 **엔드포인트** 값을 확인합니다(Azure Portal에서 리소스를 표시해도 이 정보를 확인할 수 있음).
 
-## <a name="use-the-image-classifier-from-a-client-application"></a>클라이언트 애플리케이션에서 이미지 분류자 사용
+## 클라이언트 애플리케이션에서 이미지 분류자 사용
 
 이미지 분류 모델을 게시했으므로 클라이언트 애플리케이션에서 해당 모델을 사용할 수 있습니다. 이번에도 **C#** 또는 **Python** 사용을 선택할 수 있습니다.
 
@@ -202,6 +202,6 @@ python test-detector.py
 
 6. 프로그램 실행이 완료되면 생성된 **output.jpg** 파일을 표시하여 이미지에서 감지된 개체를 확인합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Custom Vision 서비스를 통한 개체 감지에 대한 자세한 내용은 [Custom Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/)를 참조하세요.

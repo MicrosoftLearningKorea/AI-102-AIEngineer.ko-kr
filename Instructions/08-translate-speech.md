@@ -4,13 +4,13 @@ lab:
   module: Module 4 - Building Speech-Enabled Applications
 ---
 
-# <a name="translate-speech"></a>음성 번역
+# 음성 번역
 
 **Speech** 서비스에 포함된 **Speech Translation** API를 사용하면 음성 언어를 번역할 수 있습니다. 예를 들어 현지어를 모르는 곳을 여행할 때 사용할 수 있는 번역기 애플리케이션을 개발하려는 등의 경우에 이 API를 사용할 수 있습니다. 그들은 “역은 어디에 있습니까?” 와 같은 문구를 말할 수 있을 것입니다. 또는 자신의 언어로 “약국을 찾아야”하고 현지 언어로 번역해야 합니다.
 
 **참고**: 이 연습을 진행하려면 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다. 최상의 경험을 위해서는 마이크도 필요합니다. 일부 호스트 가상 환경에서는 로컬 마이크로부터 오디오를 캡처할 수 있지만, 이 기능이 작동하지 않거나 마이크가 아예 없는 경우에는 제공된 오디오 파일을 음성 입력으로 사용할 수 있습니다. 마이크를 사용하는지 아니면 오디오 파일을 사용하는지에 따라 서로 다른 옵션을 선택해야 하므로 주의하여 지침을 따르세요.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 **Cognitive Services** 리소스가 아직 없으면 리소스를 프로비전해야 합니다.
 
@@ -36,7 +36,7 @@ lab:
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 키 중 하나, 그리고 이 페이지에서 서비스가 프로비전된 위치가 필요합니다.
 
-## <a name="prepare-to-use-the-speech-translation-service"></a>Speech Translation 서비스 사용 준비
+## Speech Translation 서비스 사용 준비
 
 이 연습에서는 Speech SDK를 사용해 음성을 인식, 번역 및 합성하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -48,13 +48,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.24.0
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech==1.24.0
     ```
 
 3. **translator** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
@@ -143,11 +143,11 @@ lab:
 
 8. C#을 사용 중인 경우 비동기 메서드의 **await** 연산자 사용 관련 경고는 무시해도 됩니다. 뒷부분에서 해당 부분을 수정할 것입니다. 이 코드는 en-US 텍스트를 번역할 수 있다는 메시지를 표시합니다. ENTER 키를 눌러 프로그램을 종료합니다.
 
-## <a name="implement-speech-translation"></a>음성 번역 구현
+## 음성 번역 구현
 
 Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig**를 만들었으므로 **Speech Translation** API를 사용하여 음성을 인식한 다음 번역할 수 있습니다.
 
-### <a name="if-you-have-a-working-microphone"></a>작동하는 마이크가 있는 경우
+### 작동하는 마이크가 있는 경우
 
 1. 프로그램의 **Main** 함수에서 코드가 **Translate** 함수를 사용해 음성 입력을 번역함을 확인합니다.
 2. **Translate** 함수의 **음성 번역** 주석 아래에 다음 코드를 추가하여 **TranslationRecognizer** 클라이언트를 만듭니다. 이 클라이언트를 사용하면 입력용 기본 시스템 마이크를 사용해 음성을 인식하고 번역할 수 있습니다.
@@ -171,7 +171,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
     ```Python
     # Translate speech
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
-    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
+    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config)
     print("Speak now...")
     result = translator.recognize_once_async().get()
     print('Translating "{}"'.format(result.text))
@@ -183,7 +183,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
 
 3. 이제 아래의 **프로그램 실행** 섹션으로 넘어갑니다.
 
-### <a name="alternatively-use-audio-input-from-a-file"></a>또는 파일에서 오디오 입력 사용
+### 또는 파일에서 오디오 입력 사용
 
 1. 터미널 차에서 다음 명령을 입력하여 오디오 파일을 재생하는 데 사용할 수 있는 라이브러리를 설치합니다.
 
@@ -239,7 +239,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
     audioFile = 'station.wav'
     playsound(audioFile)
     audio_config = speech_sdk.AudioConfig(filename=audioFile)
-    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
+    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config)
     print("Getting speech from file...")
     result = translator.recognize_once_async().get()
     print('Translating "{}"'.format(result.text))
@@ -249,7 +249,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
 
     > **참고**: 애플리케이션의 코드를 한 번만 호출하면 입력이 3개 언어로 번역됩니다. 출력에는 특정 언어의 번역만 표시되지만 결과의 **translations** 컬렉션에서 대상 언어 코드를 지정하면 원하는 번역을 검색할 수 있습니다.
 
-### <a name="run-the-program"></a>프로그램 실행
+### 프로그램 실행
 
 1. 변경 내용을 저장하고 **translator** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
@@ -271,7 +271,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
     >
     > 언어 인코딩 문제로 인해 힌디어 번역이 콘솔 창에 올바르게 표시되지 않는 경우도 있습니다.
 
-## <a name="synthesize-the-translation-to-speech"></a>번역을 음성으로 합성
+## 번역을 음성으로 합성
 
 지금까지 애플리케이션은 음성 입력을 텍스트로 번역했습니다. 여행 중에 도움을 요청할 때는 텍스트 번역으로도 충분할 수 있습니다. 그러나 애플리케이션이 적절한 음성으로 번역을 '말해' 준다면 더 효율적일 것입니다.
 
@@ -330,6 +330,6 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
 
     > **참고** 이 예제에서는 **SpeechTranslationConfig**를 사용하여 음성을 텍스트로 번역한 다음 **SpeechConfig**를 사용하여 번역을 음성으로 합성했습니다. 실제로는 **SpeechTranslationConfig**를 사용해 번역을 직접 합성할 수 있습니다. 하지만 이 방식은 한 가지 언어로 번역할 때만 사용 가능하며, 음성 번역은 오디오 스트림으로 생성되어 스피커에서 바로 재생되는 대신 대개 파일로 저장됩니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **Speech Translation** API를 사용하는 방법에 대한 자세한 내용은 [Speech Translation 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-translation)를 참조하세요.

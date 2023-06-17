@@ -4,7 +4,7 @@ lab:
   module: Module 12 - Creating a Knowledge Mining Solution
 ---
 
-# <a name="create-a-knowledge-store-with-azure-cognitive-search"></a>Azure Cognitive Search를 사용하여 지식 저장소 만들기
+# Azure Cognitive Search를 사용하여 지식 저장소 만들기
 
 Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용하여 문서에서 AI 생성 필드를 추출한 다음 검색 인덱스에 포함합니다. 인덱스를 인덱싱 프로세스의 기본 출력으로 고려할 수 있지만 인덱스에 포함된 보강 데이터는 다른 방식으로 유용할 수도 있습니다. 예를 들면 다음과 같습니다.
 
@@ -14,7 +14,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
 이 연습에서는 브로셔 및 호텔 리뷰의 정보를 사용해 고객의 여행 계획을 지원하는 가상의 여행사인 *Margie's Travel*용으로 지식 저장소를 구현합니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -25,7 +25,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-azure-resources"></a>Azure 리소스 만들기
+## Azure 리소스 만들기
 
 > **참고**: **[Create an Azure Cognitive Search solution](22-azure-search.md)** 연습을 이전에 완료했으며 구독에 해당 연습의 Azure 리소스가 아직 남아 있으면 이 섹션을 건너뛰고 **검색 솔루션 만들기** 섹션부터 시작하면 됩니다. 그렇지 않은 경우에는 아래 단계에 따라 필요한 Azure 리소스를 프로비전합니다.
 
@@ -70,7 +70,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
 14. Azure Portal에서 리소스 그룹을 새로 고쳐 Azure Storage 계정, Azure Cognitive Services 리소스 및 Azure Cognitive Search 리소스가 포함되어 있는지 확인합니다.
 
-## <a name="create-a-search-solution"></a>검색 솔루션 만들기
+## 검색 솔루션 만들기
 
 이제 필요한 Azure 리소스가 준비되었으므로 다음 구성 요소로 이루어진 검색 솔루션을 만들 수 있습니다.
 
@@ -81,7 +81,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
 이 연습에서는 Azure Cognitive Search REST 인터페이스를 사용하여 JSON 요청을 제출해 이러한 구성 요소를 만듭니다.
 
-### <a name="prepare-json-for-rest-operations"></a>REST 작업용 JSON 준비
+### REST 작업용 JSON 준비
 
 이 연습에서는 REST 인터페이스를 사용해 Azure Cognitive Search 구성 요소의 JSON 정의를 제출합니다.
 
@@ -116,7 +116,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 12. **create-search** 폴더에서 **indexer.json**을 엽니다. 이 파일에는 **margies-knowledge-indexer** 인덱서의 JSON 정의가 포함되어 있습니다.
 13. 인덱서의 JSON을 검토한 후 내용을 변경하지 않고 파일을 닫습니다.
 
-### <a name="submit-rest-requests"></a>REST 요청 제출
+### REST 요청 제출
 
 검색 솔루션 구성 요소를 정의하는 JSON 개체를 준비했으므로 REST 인터페이스에 JSON 문서를 제출하여 해당 구성 요소를 만들 수 있습니다.
 
@@ -139,17 +139,17 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
     > **팁**: 스크립트 실행이 실패하면 **data_source.json** 및 **skillset.json** 파일과 **create-search.cmd** 파일에 추가한 자리 표시자를 확인합니다. 잘못 입력한 자리 표시자를 수정한 후에는 스크립트를 다시 실행하기 전에 Azure Portal 사용자 인터페이스를 사용하여 검색 리소스에서 만든 구성 요소를 삭제해야 할 수 있습니다.
 
-## <a name="view-the-knowledge-store"></a>지식 저장소 확인
+## 지식 저장소 확인
 
 기술 세트를 사용하는 인덱서를 실행하여 지식 저장소를 만든 후에는 인덱싱 프로세스에서 추출된 보강 데이터가 지식 저장소 프로젝션에 유지됩니다.
 
-### <a name="view-object-projections"></a>개체 프로젝션 보기
+### 개체 프로젝션 보기
 
 Margie’s Travel의 기술 세트에서 정의된 *개체* 프로젝션은 인덱싱된 각 문서에 대한 JSON 파일로 구성됩니다. 해당 파일은 기술 세트 정의에 지정된 Azure Storage 계정의 Blob 컨테이너에 저장됩니다.
 
 1. Azure Portal에서 이전에 만든 Azure Storage 계정을 확인합니다.
-2. 왼쪽 창에서 **스토리지 탐색기** 탭을 선택하여 Azure Portal의 스토리지 탐색기 인터페이스에서 스토리지 계정을 확인합니다.
-2. **BLOB 컨테이너**를 펼쳐 스토리지 계정의 컨테이너를 표시합니다. 원본 데이터가 저장되는 **margies** 컨테이너 외에도 **margies-images** 및 **margies-knowledge**의 두 가지 새 컨테이너가 있어야 합니다. 해당 컨테이너는 인덱싱 프로세스에 의해 생성되었습니다.
+2. 왼쪽 창에서 **스토리지 브라우저** 탭을 선택하여 Azure Portal 스토리지 탐색기 인터페이스의 스토리지 계정을 봅니다.
+2. **Blob 컨테이너를** 확장하여 스토리지 계정의 컨테이너를 봅니다. 원본 데이터가 저장되는 **margies** 컨테이너 외에도 **margies-images** 및 **margies-knowledge**의 두 가지 새 컨테이너가 있어야 합니다. 해당 컨테이너는 인덱싱 프로세스에 의해 생성되었습니다.
 3. **margies-knowledge** 컨테이너를 선택합니다. 해당 컨테이너에는 인덱싱된 각 문서에 대한 폴더가 포함되어야 합니다.
 4. 아무 폴더나 열고 폴더에 포함되어 있는 **knowledge-projection.json** 파일을 다운로드하여 엽니다. 각 JSON 파일에는 여기에 표시된 대로 기술 세트에서 추출한 보강 데이터를 포함하여 인덱싱된 문서의 표현이 포함되어 있습니다.
 
@@ -185,7 +185,7 @@ Margie’s Travel의 기술 세트에서 정의된 *개체* 프로젝션은 인�
 
 이와 같이 *개체* 프로젝션을 만드는 기능을 사용하면 엔터프라이즈 데이터 분석 솔루션에 통합될 수 있는 보강 데이터 개체를 생성할 수 있습니다. 예를 들어, 추가 처리 또는 데이터 웨어하우스로 로드하기 위해 Azure Data Factory 파이프라인으로 JSON 파일을 수집합니다.
 
-### <a name="view-file-projections"></a>파일 프로젝션 보기
+### 파일 프로젝션 보기
 
 기술 세트에 정의된 *파일* 프로젝션은 인덱싱 프로세스 중 문서에서 추출된 각 이미지에 대한 JPEG 파일을 만듭니다.
 
@@ -195,12 +195,12 @@ Margie’s Travel의 기술 세트에서 정의된 *개체* 프로젝션은 인�
 
 이와 같이 *파일* 프로젝션을 생성하는 기능은 대량의 문서에서 포함된 이미지를 추출하는 효율적인 방법을 제공합니다.
 
-### <a name="view-table-projections"></a>테이블 프로젝션 보기
+### 테이블 프로젝션 보기
 
 기술 세트에 정의된 *테이블* 프로젝션은 보강 데이터의 관계형 스키마를 형성합니다.
 
-1. Azure Portal의 스토리지 탐색기 인터페이스에서 **테이블**을 펼칩니다.
-2. **문서** 테이블을 선택하여 해당 열을 확인합니다. 열에는 몇 가지 표준 Azure Storage 테이블 열이 포함되어 있습니다. 해당 열을 숨기려면 **열 옵션**을 수정하여 다음 열만 선택합니다.
+1. Azure Portal 스토리지 탐색기 인터페이스에서 **테이블을 확장합니다**.
+2. **문서** 테이블을 선택하여 해당 열을 봅니다. 열에는 몇 가지 표준 Azure Storage 테이블 열이 포함되어 있습니다. 해당 열을 숨기려면 **열 옵션**을 수정하여 다음 열만 선택합니다.
     - **document_id**(인덱싱 프로세스에서 자동으로 생성되는 키 열)
     - **file_id**(인코딩된 파일 URL)
     - **file_name**(문서 메타데이터에서 추출된 파일 이름)
@@ -214,6 +214,6 @@ Margie’s Travel의 기술 세트에서 정의된 *개체* 프로젝션은 인�
 
 *테이블* 프로젝션을 만드는 기능을 활용하면 Microsoft Power BI 등을 사용하여 관계형 스키마를 쿼리하는 분석 및 보고 솔루션을 빌드할 수 있습니다. 자동으로 생성된 키 열을 사용하여 쿼리에서 테이블을 조인할 수 있습니다. 예를 들어 특정 문서에서 언급된 모든 위치를 반환할 수 있습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Azure Cognitive Search를 사용하여 지식 저장소를 만드는 방법에 대한 자세한 내용은 [Azure Cognitive Search 설명서](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro)를 참조하세요.

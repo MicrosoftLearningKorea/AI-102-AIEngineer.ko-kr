@@ -4,15 +4,15 @@ lab:
   module: Module 7 - Conversational AI and the Azure Bot Service
 ---
 
-# <a name="create-a-bot-with-bot-framework-composer"></a>Bot Framework Composer를 사용하여 봇 만들기
+# Bot Framework Composer를 사용하여 봇 만들기
 
 코드를 작성하지 않고도 정교한 대화형 봇을 빠르고 쉽게 빌드할 수 있는 그래픽 디자이너인 Bot Framework Composer는 Composer는 봇을 빌드하는 데 사용할 시각적 캔버스를 제공하는 오픈 소스 도구입니다.
 
-## <a name="prepare-to-develop-a-bot"></a>봇 개발 준비
+## 봇 개발 준비
 
 먼저 봇을 개발하는 데 필요한 서비스와 도구를 준비해보겠습니다.
 
-### <a name="get-an-openweather-api-key"></a>OpenWeather API 키 가져오기
+### OpenWeather API 키 가져오기
 
 이 연습에서는 OpenWeather 서비스를 사용하여 사용자가 입력한 도시의 기상 상황을 검색하는 봇을 만듭니다. 서비스가 작동하려면 API 키가 필요합니다.
 
@@ -20,7 +20,7 @@ lab:
 2. 무료 API 키를 요청하고 OpenWeather 계정을 만듭니다(계정이 아직 없는 경우).
 3. 등록 후 **API keys** 페이지를 표시하여 API 키를 확인합니다.
 
-### <a name="update-bot-framework-composer"></a>Bot Framework Composer 업데이트
+### Bot Framework Composer 업데이트
 
 Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정기적으로 업데이트되므로 최신 버전이 설치되어 있는지 확인해 보겠습니다.
 
@@ -30,11 +30,11 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 2. 사용 가능한 업데이트가 있으면 애플리케이션이 닫힐 때 설치하는 옵션을 선택합니다. 그런 다음에 Bot Framework Composer를 닫고 현재 로그인된 사용자에 대해 업데이트를 설치합니다. 설치가 완료되면 Bot Framework Composer를 다시 시작합니다. 설치하는 데 몇 분 정도 걸릴 수 있습니다.
 3. Bot Framework Composer 버전이 **2.0.0** 이상인지 확인합니다.
 
-## <a name="create-a-bot"></a>봇 만들기
+## 봇 만들기
 
 이제 Bot Framework Composer를 사용하여 봇을 만들 준비가 되었습니다.
 
-### <a name="create-a-bot-and-customize-the-welcome-dialog-flow"></a>봇 생성 및 "시작" 대화 흐름 사용자 지정
+### 봇 생성 및 "시작" 대화 흐름 사용자 지정
 
 1. 아직 열려 있지 않으면 Bot Framework Composer를 시작합니다.
 2. **홈** 화면에서 **새로 생성**를 선택합니다. 그런 다음 새로운 빈 봇을 만들고 이름을 **WeatherBot**으로 지정하여 로컬 폴더에 저장합니다.
@@ -53,7 +53,7 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 
     ![사용자를 환영하고 사용자의 이름을 요청하는 대화 흐름](./images/welcomeUsers.png)
 
-### <a name="test-the-bot"></a>봇 테스트
+### 봇 테스트
 
 기본 봇이 완료되었으므로 이제 테스트해 보겠습니다.
 
@@ -67,11 +67,11 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 5. 웹 채팅 패널을 닫습니다.
 6. Composer의 오른쪽 상단, **&#8635;봇 재시작** 옆에서 **<u>=</u>** 를 클릭하여 **로컬 봇 런타임 관리자** 창을 열고 ⏹ 아이콘을 사용하여 봇을 중지합니다.
 
-## <a name="add-a-dialog-to-get-the-weather"></a>날씨 정보를 얻기 위한 대화 추가
+## 날씨 정보를 얻기 위한 대화 추가
 
 이제 작동하는 봇이 있으므로 특정 상호 작용에 맞는 대화를 추가하여 해당 기능을 확장할 수 있습니다. 이 경우 사용자가 "날씨"를 언급하면 트리거되는 대화를 추가합니다.
 
-### <a name="add-a-dialog"></a>대화 추가
+### 대화 추가
 
 먼저 날씨에 대한 질문을 처리하는 데 사용되는 대화 흐름을 정의해야 합니다.
 
@@ -137,7 +137,7 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 
     ![HTTP 응답 결과의 분기가 포함된 대화 흐름](./images/getWeather-dialog-2.png)
 
-### <a name="add-a-trigger-for-the-dialog"></a>대화의 트리거 추가
+### 대화의 트리거 추가
 
 이제 기존 시작 대화에서 새 대화를 시작하는 방법이 필요합니다.
 
@@ -171,7 +171,7 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 6. 봇을 다시 시작하고 웹 채팅 창을 엽니다. 그런 다음에 대화를 다시 시작하고, 이름을 입력한 후에 `What is the weather like?`를 입력합니다. 그리고 해당 메시지가 표시될 때 `Seattle`과 같은 도시를 입력합니다. 봇이 서비스에 연결하고 작은 날씨 보고서 명령문으로 응답해야 합니다.
 7. 테스트가 완료되면 웹 채팅 창을 닫고 봇을 중지합니다.
 
-## <a name="handle-interruptions"></a>중단 처리
+## 중단 처리
 
 적절하게 디자인된 봇과 대화를 할 때 사용자는 요청을 취소하는 등의 작업을 통해 대화 흐름을 변경할 수 있습니다.
 
@@ -199,11 +199,11 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 8. 요청을 취소한 후 `What's the weather like?`를 입력합니다. 그러면 해당 트리거가 **GetWeather** 대화의 새 인스턴스를 시작하며 도시를 입력하라는 메시지가 다시 표시됩니다.
 9. 테스트가 완료되면 웹 채팅 창을 닫고 봇을 중지합니다.
 
-## <a name="enhance-the-user-experience"></a>사용자 환경 개선
+## 사용자 환경 개선
 
 지금까지는 텍스트를 통해 날씨 봇과 상호 작용을 진행했습니다.  사용자가 의도에 맞는 텍스트를 입력하면 봇은 텍스트를 사용하여 응답합니다. 텍스트도 적절한 정보 교환 방식인 경우가 많지만, 사용자 인터페이스 요소의 다른 형식을 활용하면 환경을 개선할 수 있습니다.  예를 들어 단추를 사용해 권장 작업을 시작하거나 *카드*를 표시하여 정보를 시각적으로 제공할 수 있습니다.
 
-### <a name="add-a-button"></a>단추 추가
+### 단추 추가
 
 1. Bot Framework Composer 탐색 창의 **GetWeather** 작업 아래에서 **BeginDialog**를 선택합니다.
 2. 제작 캔버스에서 도시에 대한 프롬프트를 포함하는 **텍스트 프롬프트** 작업을 선택합니다.
@@ -218,7 +218,7 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 
 이 활동에서도 이전처럼 사용자에게 도시를 입력하라는 메시지가 표시되지만 **취소** 단추도 함께 표시됩니다.
 
-### <a name="add-a-card"></a>카드 추가
+### 카드 추가
 
 1. **GetWeather** 대화의 **True** 경로에서 HTTP 날씨 서비스의 응답을 확인한 후 일기 예보를 표시하는 **응답 보내기** 작업을 선택합니다.
 2. 속성 창에서 **코드 표시**를 선택하고 기존 코드를 다음 코드로 바꿉니다.
@@ -233,12 +233,12 @@ Bot Framework Composer 사용하여 봇을 만들겠습니다. 이 도구는 정
 
 이 템플릿은 날씨 조건에 대해 이전과 동일한 변수를 사용하지만 날씨 조건에 대한 이미지와 함께 표시될 카드에 제목을 추가합니다.
 
-### <a name="test-the-new-user-interface"></a>새 사용자 인터페이스 테스트
+### 새 사용자 인터페이스 테스트
 
 1. 봇을 다시 시작하고 웹 채팅 창을 엽니다. 대화를 다시 시작하고, 이름을 입력한 후에 `What is the weather like?`를 입력합니다. 그런 다음 메시지가 표시되면 **취소** 단추를 클릭하여 요청을 취소합니다.
 2. 요청을 취소한 후 `Tell me about the weather`를 입력하고 메시지가 표시되면 `London` 등의 도시를 입력합니다. 그러면 봇이 서비스에 연결하여 기상 상황을 나타내는 카드를 응답으로 표시합니다.
 3. 테스트가 완료되면 에뮬레이터를 닫고 봇을 중지합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Bot Framework Composer에 대해 자세히 알아보려면 [Bot Framework Composer 설명서](https://docs.microsoft.com/composer/introduction)를 참조하세요.

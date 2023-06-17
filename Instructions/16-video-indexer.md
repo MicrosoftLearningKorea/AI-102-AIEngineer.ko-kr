@@ -4,13 +4,13 @@ lab:
   module: Module 8 - Getting Started with Computer Vision
 ---
 
-# <a name="analyze-video-with-video-analyzer"></a>Video Analyzer를 사용하여 비디오 분석
+# Video Analyzer를 사용하여 비디오 분석
 
 오늘날 생성 및 사용되고 있는 데이터 중 대부분은 비디오 형식입니다. AI 지원 서비스인 **Video Analyzer for Media**를 사용하면 비디오를 인덱싱하고 비디오에서 인사이트를 추출할 수 있습니다.
 
 > **참고**: 2022년 6월 21일부터 개인 식별 정보를 반환하는 Cognitive Service의 기능은 [제한된 액세스 권한](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)이 부여된 고객으로 제한됩니다. 제한된 액세스 승인을 받지 않으면 이 랩에서 Video Analyzer로 사용자 및 유명인사를 인식하는 기능을 사용할 수 없습니다. Microsoft가 변경한 내용 및 그 이유에 대한 자세한 내용은 [얼굴 인식에 대한 책임 있는 AI 투자 및 보호 조치](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)를 참조하세요.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="upload-a-video-to-video-analyzer"></a>Video Analyzer에 비디오 업로드
+## Video Analyzer에 비디오 업로드
 
 먼저 Video Analyzer 포털에 로그인하여 비디오를 업로드해야 합니다.
 
@@ -34,7 +34,7 @@ lab:
 
 > **참고**: 이 연습에서는 이 비디오를 사용해 Video Analyzer 기능을 살펴봅니다. 이 비디오에는 AI 지원 애플리케이션을 책임감 있는 방식으로 개발하는 방법과 관련된 유용한 정보 및 지침이 포함되어 있으므로, 연습을 마친 후 비디오를 끝까지 시청해야 합니다. 
 
-## <a name="review-video-insights"></a>비디오 인사이트 검토
+## 비디오 인사이트 검토
 
 인덱싱 프로세스에서는 비디오의 인사이트가 추출됩니다. 추출된 인사이트는 포털에서 확인할 수 있습니다.
 
@@ -64,7 +64,7 @@ lab:
 
     여기서 확인되는 인사이트를 통해 비디오의 기본 주제를 파악할 수 있습니다. 예를 들어 이 비디오의 **토픽**으로는 기술, 사회적 책임, 윤리 등이 표시됩니다.
 
-## <a name="search-for-insights"></a>인사이트 검색
+## 인사이트 검색
 
 Video Analyzer를 사용하여 비디오에서 인사이트를 검색할 수 있습니다.
 
@@ -75,7 +75,7 @@ Video Analyzer를 사용하여 비디오에서 인사이트를 검색할 수 있
 
 ![Video Analyzer에 표시된 Bee의 검색 결과](./images/video-indexer-search.png)
 
-## <a name="use-video-analyzer-widgets"></a>Video Analyzer 위젯 사용
+## Video Analyzer 위젯 사용
 
 Video Analyzer 포털은 비디오 인덱싱 프로젝트를 관리할 수 있는 유용한 인터페이스입니다. 그러나 Video Analyzer 계정 액세스 권한이 없는 사용자에게 비디오와 인사이트를 제공해야 하는 경우도 많습니다. Video Analyzer에서는 이러한 용도로 웹 페이지에 포함할 수 있는 위젯을 제공합니다.
 
@@ -91,11 +91,11 @@ Video Analyzer 포털은 비디오 인덱싱 프로젝트를 관리할 수 있�
 
 ![웹 페이지의 Video Analyzer 위젯](./images/video-indexer-widgets.png)
 
-## <a name="use-the-video-analyzer-rest-api"></a>Video Analyzer REST API 사용
+## Video Analyzer REST API 사용
 
 Video Analyzer는 계정에서 비디오를 업로드하고 관리하는 데 사용할 수 있는 REST API를 제공합니다.
 
-### <a name="get-your-api-details"></a>API 세부 정보 가져오기
+### API 세부 정보 가져오기
 
 Video Analyzer API를 사용하려면 요청 인증을 위한 몇 가지 정보가 필요합니다.
 
@@ -105,7 +105,7 @@ Video Analyzer API를 사용하려면 요청 인증을 위한 몇 가지 정보�
 4. **프로필** 페이지에서 프로필과 연관된 **구독**을 봅니다.
 5. 구독이 표시된 페이지에서 각 구독에 키 2개(기본 키와 보조 키)가 할당되었음을 확인합니다. 그런 다음 두 키 중 하나에서 **표시**를 선택하여 키를 확인합니다. 잠시 후에 이 키가 필요합니다.
 
-### <a name="use-the-rest-api"></a>REST API 사용
+### REST API 사용
 
 계정 ID와 API 키를 확인했으므로 REST API를 사용하여 계정에서 비디오 관련 작업을 할 수 있습니다. 이 절차에서는 PowerShell 스크립트를 사용하여 REST 호출을 수행합니다. 하지만 cURL, Postman 등의 HTTP 유틸리티나 HTTP를 통해 JSON을 보내고 받을 수 있는 모든 프로그래밍 언어에도 같은 원칙이 적용됩니다.
 
@@ -121,7 +121,7 @@ Video Analyzer REST API와의 모든 상호 작용에서는 동일한 패턴이 
 5. 변경 내용을 저장하고 스크립트 창 오른쪽 위에서 **&#9655;** 단추를 사용하여 스크립트를 실행합니다.
 6. REST 서비스의 JSON 응답을 확인합니다. 앞에서 인덱싱한 **책임있는 AI** 비디오의 세부 정보가 응답에 포함되어 있습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 사람과 유명인사에 대한 인식 기능은 사용할 수 있지만 [요구되는 AI 표준](https://aka.ms/aah91ff)을 준수하는 것은 제한된 액세스 정책 하에 제한됩니다. 이러한 기능에 얼굴 식별 및 유명 인사 인식이 포함됩니다. 자세한 내용을 알아보고 액세스를 신청하려면 [Cognitive Services에 대한 제한된 액세스](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)를 참조하세요.
 

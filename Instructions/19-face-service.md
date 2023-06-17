@@ -4,13 +4,13 @@ lab:
   module: 'Module 10 - Detecting, Analyzing, and Recognizing Faces'
 ---
 
-# <a name="detect-and-analyze-faces"></a>얼굴 감지 및 분석
+# 얼굴 감지 및 분석
 
 사람의 얼굴을 감지 및 분석하는 기능은 AI의 핵심 기능입니다. 이 연습에서는 이미지에 포함된 얼굴로 작업을 하는 데 사용할 수 있는 두 가지 Azure Cognitive Services인 **Computer Vision** 서비스와 **Face** 서비스에 대해 살펴봅니다.
 
 > **참고**: 2022년 6월 21일부터 개인 식별 정보를 반환하는 Cognitive Service의 기능은 [제한된 액세스 권한](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)이 부여된 고객으로 제한됩니다. 또한 감정 상태를 유추하는 기능은 더 이상 사용할 수 없습니다. 이러한 제한 사항은 이 랩 연습에 영향을 줄 수 있습니다. 이 문제를 해결하기 위해 노력하고 있지만, 그 동안에는 아래 단계를 수행하면 몇 가지 오류가 발생할 수 있습니다. 이에 대해 사과드립니다. Microsoft가 변경한 내용 및 그 이유에 대한 자세한 내용은 [얼굴 인식에 대한 책임 있는 AI 투자 및 보호 조치](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)를 참조하세요.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 과정용 코드 리포지토리를 아직 복제하지 않았으면 복제해야 합니다.
 
@@ -21,7 +21,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -36,7 +36,7 @@ lab:
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
-## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDK 사용 준비
+## Computer Vision SDK 사용 준비
 
 이 연습에서는 Computer Vision SDK를 사용해 이미지의 얼굴을 분석하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -87,14 +87,14 @@ lab:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-## <a name="view-the-image-you-will-analyze"></a>분석할 이미지 확인
+## 분석할 이미지 확인
 
 이 연습에서는 Computer Vision 서비스를 사용하여 사람 이미지를 분석합니다.
 
 1. Visual Studio Code에서 **computer-vision** 폴더와 이 폴더에 포함된 **images** 폴더를 차례로 확장합니다.
 2. **people.jpg** 이미지를 선택하여 표시합니다.
 
-## <a name="detect-faces-in-an-image"></a>이미지에서 얼굴 감지
+## 이미지에서 얼굴 감지
 
 이제 SDK를 사용해 Computer Vision 서비스를 호출하고 이미지의 얼굴을 감지할 준비가 되었습니다.
 
@@ -232,7 +232,7 @@ with open(image_file, mode="rb") as image_data:
 6. 출력을 살펴봅니다. 감지된 얼굴 수가 표시됩니다.
 7. 코드 파일과 같은 폴더에 생성된 **detected_faces.jpg** 파일을 표시하여 주석이 추가된 얼굴을 확인합니다. 여기서 코드는 얼굴 특성을 사용해 상자의 왼쪽 상단 위치에 레이블을 지정하고 경계 상자 좌표를 사용해 각 얼굴 주위에 사각형을 그렸습니다.
 
-## <a name="prepare-to-use-the-face-sdk"></a>Face SDK 사용 준비
+## Face SDK 사용 준비
 
 **Computer Vision** 서비스는 기본적인 얼굴 감지 기능을 제공(기타 여러 이미지 분석 기능도 제공함)하는 반면 **Face** 서비스에서는 얼굴 분석 및 인식을 위한 더욱 포괄적인 기능을 제공합니다.
 
@@ -304,7 +304,7 @@ with open(image_file, mode="rb") as image_data:
 
 8. **Main** 함수의 방금 추가한 코드 아래에 있는 코드가 메뉴를 표시함을 확인합니다. 이 메뉴를 사용하면 코드의 함수를 호출하여 Face 서비스 기능을 살펴볼 수 있습니다. 이 연습의 나머지 부분에서 이러한 함수를 구현합니다.
 
-## <a name="detect-and-analyze-faces"></a>얼굴 감지 및 분석
+## 얼굴 감지 및 분석
 
 Face 서비스의 가장 기본적인 기능 중 하나는 이미지에서 얼굴을 감지하고 해당 특성을 확인하는 것입니다. 이러한 특성으로는 머리 자세, 흐릿한 형체, 안경 유무 등이 있습니다.
 
@@ -458,7 +458,7 @@ with open(image_file, mode="rb") as image_data:
 6. 메시지가 표시되면 **1**을 입력하고 출력을 살펴봅니다. 출력에는 감지된 각 얼굴의 ID와 특성이 포함되어 있습니다.
 7. 코드 파일과 같은 폴더에 생성된 **detected_faces.jpg** 파일을 표시하여 주석이 추가된 얼굴을 확인합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **Face** 서비스 내에서 사용할 수 있는 몇 가지 추가 기능이 있지만 [요구되는 AI 표준](https://aka.ms/aah91ff)에 따라 제한된 액세스 정책 하에 제한됩니다. 이러한 기능에는 얼굴 인식 모델 식별, 검증 및 생성이 있습니다. 자세한 내용을 알아보고 액세스를 신청하려면 [Cognitive Services에 대한 제한된 액세스](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)를 참조하세요.
 

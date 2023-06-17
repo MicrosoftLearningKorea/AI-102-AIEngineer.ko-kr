@@ -4,7 +4,7 @@ lab:
   module: Setup
 ---
 
-# <a name="enable-resource-providers"></a>리소스 공급자 사용
+# 리소스 공급자 사용
 
 Azure 구독에는 몇 가지 리소스 공급자를 등록해야 합니다. 이러한 공급자가 등록되어 있는지 확인하려면 다음 단계를 수행합니다.
 

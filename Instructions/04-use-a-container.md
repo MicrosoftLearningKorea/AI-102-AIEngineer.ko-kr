@@ -4,13 +4,13 @@ lab:
   module: Module 2 - Developing AI Apps with Cognitive Services
 ---
 
-# <a name="use-a-cognitive-services-container"></a>Cognitive Services 컨테이너 사용
+# Cognitive Services 컨테이너 사용
 
 Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이션 개발자는 직접 작성하는 코드용 인프라 관련 작업을 중점적으로 수행하는 동시에 Microsoft에서 관리하는 확장성 있는 서비스도 활용할 수 있습니다. 그러나 조직에서는 서비스 인프라 및 서비스 간에 전달되는 데이터를 더욱 철저하게 제어해야 하는 경우가 많습니다.
 
 대다수 Cognitive Services API는 *컨테이너*로 패키지하여 배포할 수 있습니다. 따라서 조직은 로컬 Docker 서버, Azure Container Instances, Azure Kubernetes Services 클러스터 등의 자체 인프라에서 Cognitive Services를 호스트할 수 있습니다. 컨테이너화된 Cognitive Services는 청구 지원을 위해 Azure 기반 Cognitive Services 계정과 통신해야 합니다. 그러나 애플리케이션 데이터는 백 엔드 서비스로 전달되지 않으며 조직은 컨테이너 배포 구성을 더욱 자세히 제어할 수 있습니다. 그러므로 인증, 확장성 및 기타 고려 사항 충족을 위한 사용자 지정 솔루션을 활용할 수 있습니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -21,7 +21,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 구독에 아직 없는 경우 **Cognitive Services** 리소스를 프로비전해야 합니다.
 
@@ -36,7 +36,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 4. 배포가 완료될 때까지 기다린 다음, 배포 세부 정보를 봅니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
-## <a name="deploy-and-run-a-text-analytics-container"></a>Text Analytics 컨테이너 배포 및 실행
+## Text Analytics 컨테이너 배포 및 실행
 
 흔히 사용되는 대다수 Cognitive Services API는 컨테이너 이미지에서 제공됩니다. 전체 API 목록은 [Cognitive Services 설명서](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)에서 확인할 수 있습니다. 이 연습에서는 Text Analytics *언어 감지* API용 컨테이너 이미지를 사용하지만 사용 가능한 모든 이미지에는 동일한 원칙이 적용됩니다.
 
@@ -49,7 +49,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
         - **지역**: 사용 가능한 지역을 선택합니다.
         - **이미지 소스**: 기타 레지스트리
         - **이미지 형식**: 공개
-        - **이미지**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
+        - **이미지**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest`
         - **OS 유형**: Linux
         - **Size**: vCPU 1개, 메모리 4GB
     - **네트워킹**:
@@ -63,8 +63,8 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
             | 원본으로 표시 | 키 | 값 |
             | -------------- | --- | ----- |
             | 예 | `ApiKey` | Cognitive Services 리소스용 키 중 하나 |
-            | 예 | `Billing` | Cognitive Services 리소스의 엔드포인트 URI |
-            | 예 | `Eula` | `accept` |
+            | Yes | `Billing` | Cognitive Services 리소스의 엔드포인트 URI |
+            | No | `Eula` | `accept` |
 
         - **명령 재정의**: [ ]
     - **태그**:
@@ -84,7 +84,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
     >
     > 이 명령은 로컬 컴퓨터에서 이미지를 찾은 후 이미지가 없으면 *mcr.microsoft.com* 이미지 레지스트리에서 이미지를 끌어와 Docker 인스턴스에 배포합니다. 배포가 완료되면 컨테이너가 시작되어 포트 5000에서 들어오는 요청을 수신 대기합니다.
 
-## <a name="use-the-container"></a>컨테이너 사용
+## 컨테이너 사용
 
 1. Visual Studio Code의 **04-containers** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. 이때 *&lt;your_ACI_IP_address_or_FQDN&gt;* 을 컨테이너의 IP 주소나 FQDN으로 바꿉니다.
 
@@ -101,13 +101,13 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 
 4. 명령이 입력 문서 2개에서 감지된 언어(영어 및 프랑스어) 관련 정보가 포함된 JSON 문서를 반환함을 확인합니다.
 
-## <a name="clean-up"></a>정리
+## 정리
 
 컨테이너 인스턴스를 사용한 실험을 완료한 후에는 컨테이너 인스턴스를 삭제해야 합니다.
 
 1. Azure Portal에서 이 연습용으로 리소스를 만든 리소스 그룹을 엽니다.
 2. 컨테이너 인스턴스 리소스를 선택하여 삭제합니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Cognitive Services를 컨테이너화하는 방법에 대한 자세한 내용은 [Cognitive Services 컨테이너 설명서](https://docs.microsoft.com/azure/cognitive-services/containers/)를 참조하세요.
