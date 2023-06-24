@@ -4,11 +4,11 @@ lab:
   module: Module 2 - Developing AI Apps with Cognitive Services
 ---
 
-# <a name="get-started-with-cognitive-services"></a>Cognitive Services 시작
+# Cognitive Services 시작
 
 이 연습에서는 Azure 구독에서 **Cognitive Services** 리소스를 만든 후 클라이언트 애플리케이션에서 해당 리소스를 사용하는 것으로 Cognitive Services 사용을 시작합니다. 이 연습의 목표는 특정 서비스 관련 전문 지식을 습득하는 것이 아니라 개발자가 Cognitive Services를 프로비전 및 사용하는 일반적인 패턴을 파악하는 것입니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
@@ -19,7 +19,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services 리소스 프로비전
+## Cognitive Services 리소스 프로비전
 
 Azure Cognitive Services는 애플리케이션에 통합할 수 있는 인공 지능 기능이 캡슐화된 클라우드 기반 서비스입니다. 특정 API용 개별 Cognitive Services 리소스(예: **Language** 또는 **Computer Vision**)를 프로비저닝할 수도 있고, 엔드포인트와 키 하나를 통해 여러 Cognitive Services API에 액세스할 수 있는 일반 **Cognitive Services** 리소스를 프로비저닝할 수도 있습니다. 여기서는 단일 **Cognitive Services** 리소스를 사용합니다.
 
@@ -37,7 +37,7 @@ Azure Cognitive Services는 애플리케이션에 통합할 수 있는 인공 �
     - 인증에 사용할 수 있는 *키* 2개(클라이언트 애플리케이션은 두 키 중 하나를 사용하여 인증할 수 있음)
     - 리소스가 호스트되는 *위치*. 일부 API(모든 API는 아님)에 요청을 보내려면 이 위치가 필요합니다.
 
-## <a name="use-a-rest-interface"></a>REST 인터페이스 사용
+## REST 인터페이스 사용
 
 Cognitive Services API는 REST를 기반으로 하므로 HTTP를 통해 JSON 요청을 제출하여 API를 사용할 수 있습니다. 이 연습에서는 **Language** REST API를 사용해 언어 감지를 수행하는 콘솔 애플리케이션을 살펴봅니다. 하지만 Cognitive Services 리소스가 지원하는 모든 API에는 동일한 기본 원칙이 적용됩니다.
 
@@ -78,7 +78,7 @@ Cognitive Services API는 REST를 기반으로 하므로 HTTP를 통해 JSON 요
 5. 메시지가 표시되면 텍스트를 입력하고 서비스가 감지하는 언어를 검토합니다. 이 언어가 JSON 응답에서 반환됩니다. 예를 들어, “Hello”, “Bonjour”, “Hola” 등을 입력해 봅니다.
 6. 애플리케이션 테스트를 완료한 후 "quit"을 입력하여 프로그램을 중지합니다.
 
-## <a name="use-an-sdk"></a>SDK 사용
+## SDK 사용
 
 Cognitive Services REST API를 직접 사용하는 코드를 작성할 수도 있지만 Microsoft C#, Python, Node.js 등의 널리 사용되는 프로그래밍 언어용 SDK(소프트웨어 개발 키트)를 사용할 수도 있습니다. SDK를 활용하면 Cognitive Services를 사용하는 애플리케이션을 매우 간편하게 개발할 수 있습니다.
 
@@ -131,6 +131,6 @@ Cognitive Services REST API를 직접 사용하는 코드를 작성할 수도 �
 
 > **참고**: 유니코드 문자 집합이 필요한 일부 언어는 이 간단한 콘솔 애플리케이션에서 인식되지 않을 수도 있습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 Azure Cognitive Services에 대한 자세한 내용은 [Cognitive Services 설명서](https://docs.microsoft.com/azure/cognitive-services/what-are-cognitive-services)를 참조하세요.

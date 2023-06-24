@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Language Understanding 앱 만들기
+  title: Language Understanding 앱 만들기(사용되지 않음)
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="create-a-language-understanding-app"></a>Language Understanding 앱 만들기
+# 이제 Azure에서: Language Understanding 앱 만들기
 
 Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱을 정의할 수 있습니다. 애플리케이션은 이 모델을 통해 사용자의 자연어 입력을 해석하고, 사용자의 *의도*(사용자가 달성하려는 목표)를 예측하고, 해당 의도를 적용해야 하는 *엔터티*를 식별할 수 있습니다.
 
@@ -16,7 +16,7 @@ Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱�
 
 > **참고**: Language Understanding 앱은 사용자 의도를 예측하여 해당 의도가 적용되는 엔터티를 식별하는 작업을 수행합니다. 하지만 의도를 충족하는 데 필요한 작업을 실제로 수행하지는 <u>않습니다</u>. 예를 들어 시계 애플리케이션은 언어 앱을 사용해 사용자가 런던의 시간을 확인하려 한다는 것을 파악할 수는 있습니다. 그러나 이처럼 의도가 파악되고 나면 클라이언트 애플리케이션 자체가 논리를 구현해 정확한 시간을 확인하여 사용자에게 표시해야 합니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
@@ -27,7 +27,7 @@ Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱�
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-language-understanding-resources"></a>Language Understanding 리소스 만들기
+## Language Understanding 리소스 만들기
 
 Language Understanding 서비스를 사용하려면 다음과 같은 두 가지 종류의 리소스가 필요합니다.
 
@@ -53,7 +53,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
     - **예측 가격 책정 계층**: F0
 3. 리소스를 만들 때까지 기다렸다가 두 개의 Language Understanding 리소스가 프로비저닝되었는지 확인합니다. 하나는 작성용이고 다른 하나는 예측용입니다. 이 항목을 생성된 리소스 그룹으로 이동하여 두 항목을 모두 볼 수 있습니다. **리소스로 이동**을 선택하면 *작성* 리소스가 열립니다.
 
-## <a name="create-a-language-understanding-app"></a>Language Understanding 앱 만들기
+## Language Understanding 앱 만들기
 
 이제 작성 리소스를 만들었으므로 해당 리소스를 사용하여 Language Understanding 앱을 만들 수 있습니다.
 
@@ -72,7 +72,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
     
     효과적인 Language Understanding 앱을 만들기 위한 팁이 포함된 패널이 표시되면 닫습니다.
 
-## <a name="create-intents"></a>의도 만들기
+## 의도 만들기
 
 새 앱에서는 먼저 몇 가지 의도를 정의합니다.
 
@@ -102,7 +102,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
     *goodbye*
 
-## <a name="train-and-test-the-app"></a>앱 학습 및 테스트
+## 앱 학습 및 테스트
 
 이제 몇 가지 의도를 추가했으므로 앱을 학습시켜 사용자 입력에서 정확하게 예측을 할 수 있는지 확인해 보겠습니다.
 
@@ -133,11 +133,11 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
 6. 테스트 패널을 닫습니다.
 
-## <a name="add-entities"></a>엔터티 추가
+## 엔터티 추가
 
 지금까지 의도에 매핑되는 간단한 발화 몇 가지를 정의했습니다. 대다수 실제 애플리케이션에는 더 복잡한 발화가 포함됩니다. 이러한 발화에서 구체적인 데이터 엔터티를 추출하여 의도 예측을 위한 추가 컨텍스트를 수집해야 합니다.
 
-### <a name="add-a-machine-learned-entity"></a>*기계 학습된* 엔터티 추가
+### *기계 학습된* 엔터티 추가
 
 가장 흔히 사용되는 엔터티 유형은 *기계 학습된* 엔터티입니다. 앱은 이 엔터티에서 예제를 기준으로 엔터티 값을 식별합니다.
 
@@ -155,7 +155,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
 7. 이 발화를 추가한 후 단어 ***new york***을 선택하여 **Location** 엔터티에 매핑합니다.
 
-### <a name="add-a-list-entity"></a>*list* 엔터티 추가
+### *list* 엔터티 추가
 
 엔터티의 유효한 값을 특정 단어 및 동의어 목록으로 제한할 수 있는 경우도 있습니다. 이렇게 하면 앱이 발화의 엔터티 인스턴스를 쉽게 식별할 수 있습니다.
 
@@ -185,7 +185,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
 7. 이 발화를 추가한 후 **friday**가 **Weekday** 엔터티에 매핑되는지 확인합니다.
 
-### <a name="add-a-regex-entity"></a>*Regex* 엔터티 추가
+### *Regex* 엔터티 추가
 
 일련 번호, 양식 코드, 날짜 등 특정 형식으로 된 엔터티도 있습니다. 이 경우 앱이 일치하는 엔터티 값을 식별할 수 있도록 필요한 형식을 설명하는 정규식(*regex*)을 정의할 수 있습니다.
 
@@ -210,7 +210,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
 7. 이 발화를 추가한 후 **12/12/2099**가 **Date** 엔터티에 매핑되는지 확인합니다.
 
-### <a name="retrain-the-app"></a>앱 다시 학습시키기
+### 앱 다시 학습시키기
 
 이제 언어 모델을 수정했으므로 앱을 다시 학습시켜 테스트를 다시 진행해야 합니다.
 
@@ -230,7 +230,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
 5. 테스트를 완료한 후 검사 패널을 닫되 테스트 패널은 열어 둡니다.
 
-## <a name="perform-batch-testing"></a>일괄 처리 테스트 수행
+## 일괄 처리 테스트 수행
 
 테스트 창을 사용해 개별 발화를 대화형으로 테스트할 수 있습니다. 그러나 더욱 복잡한 언어 모델의 경우에는 대개 *일괄 처리 테스트*를 수행하는 것이 더 효율적입니다.
 
@@ -251,7 +251,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 7. **Location** 엔터티를 선택하고 오차 행렬에서 예측 결과를 확인합니다. 특히 거짓 부정 예측을 자세히 살펴봅니다. 거짓 부정이란 앱이 발화에서 지정된 위치를 예측하지 못한 경우입니다. 즉, 의도에 샘플 발화를 더 추가하고 모델을 다시 학습시켜야 할 수 있습니다.
 8. 일괄 처리 테스트 패널을 닫습니다.
 
-## <a name="publish-the-app"></a>앱 게시
+## 앱 게시
 
 실제 프로젝트에서는 만족할 만한 예측 성능이 제공될 때까지 의도와 엔터티를 여러 번 미세 조정하고 모델을 다시 학습시켜 테스트를 다시 진행합니다. 그런 후에 클라이언트 애플리케이션이 사용하도록 앱을 게시합니다.
 
@@ -301,7 +301,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 
     터미널은 나중에 다시 사용할 것이므로 열어 둡니다.
 
-## <a name="apply-active-learning"></a>*활성 학습* 적용
+## *활성 학습* 적용
 
 엔드포인트에 제출된 발화 기록을 토대로 Language Understanding 앱을 개선할 수 있습니다. 이러한 개선 방식이 *활성 학습*입니다.
 
@@ -316,7 +316,7 @@ Language Understanding 작성 리소스와 예측 리소스가 아직 없으면 
 7. **09-luis-app** 폴더의 터미널로 돌아와서 **GetIntent** 명령을 사용해 활성 학습 중에 추가 및 수정한 발화를 제출합니다.
 8. 이제 결과에 **Location** 엔터티가 포함되어 있음을 확인합니다. 그런 다음 동일 구문을 사용하되 다른 위치(예: *Berlin*)를 지정하는 다른 발화를 실행해 봅니다.
 
-## <a name="export-the-app"></a>앱 내보내기
+## 앱 내보내기
 
 Language Understanding 포털을 사용하면 언어 앱을 개발하고 테스트할 수 있습니다. 그러나 DevOps용 소프트웨어 개발 프로세스에서는 CI/CD(연속 통합/지속적인 업데이트) 파이프라인에 포함할 수 있는 앱의 원본 제어 정의를 유지 관리해야 합니다. 코드 스크립트에서 REST API 또는 Language Understanding SDK를 사용하여 앱을 만들고 학습시킬 수도 있습니다. 하지만 포털을 사용하여 앱을 만든 후에 다른 Language Understanding 인스턴스에서 가져와 다시 학습시킬 수 있는 *.lu* 파일로 내보내는 방식이 더 간편합니다. 이 방식을 사용하면 생산성이 우수한 포털을 활용하는 동시에 앱의 이동성과 재현 가능성도 유지할 수 있습니다.
 
@@ -325,6 +325,6 @@ Language Understanding 포털을 사용하면 언어 앱을 개발하고 테스�
 3. **내보내기** 드롭다운 목록에서 **LU로 내보내기**를 선택합니다. 그런 다음 브라우저에서 메시지가 표시되면 **09-luis-app** 폴더에 파일을 저장합니다.
 4. Visual Studio Code에서 방금 내보낸 후 다운로드한 **.lu** 파일을 엽니다(Marketplace에서 해당 파일을 읽을 수 있는 확장을 검색하라는 메시지가 표시되면 해당 메시지를 해제하면 됨). LU는 사람이 읽을 수 있는 형식이므로 팀 개발 환경에서 Language Understanding 앱의 정의를 효율적으로 문서화할 수 있습니다.
 
-## <a name="more-information"></a>추가 정보
+## 추가 정보
 
 **Language Understanding** 서비스를 사용하는 방법에 대한 자세한 내용은 [Language Understanding 설명서](https://docs.microsoft.com/azure/cognitive-services/luis/)를 참조하세요.
