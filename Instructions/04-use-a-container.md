@@ -10,6 +10,8 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 
 대다수 Cognitive Services API는 *컨테이너*로 패키지하여 배포할 수 있습니다. 따라서 조직은 로컬 Docker 서버, Azure Container Instances, Azure Kubernetes Services 클러스터 등의 자체 인프라에서 Cognitive Services를 호스트할 수 있습니다. 컨테이너화된 Cognitive Services는 청구 지원을 위해 Azure 기반 Cognitive Services 계정과 통신해야 합니다. 그러나 애플리케이션 데이터는 백 엔드 서비스로 전달되지 않으며 조직은 컨테이너 배포 구성을 더욱 자세히 제어할 수 있습니다. 그러므로 인증, 확장성 및 기타 고려 사항 충족을 위한 사용자 지정 솔루션을 활용할 수 있습니다.
 
+> **참고**: 현재 조사 중인 일부 사용자가 컨테이너가 제대로 배포되지 않고 해당 컨테이너에 대한 호출이 실패하는 문제가 있습니다. 이 랩에 대한 업데이트 문제가 해결되는 즉시 수행됩니다.
+
 ## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
@@ -63,8 +65,8 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
             | 원본으로 표시 | 키 | 값 |
             | -------------- | --- | ----- |
             | 예 | `ApiKey` | Cognitive Services 리소스용 키 중 하나 |
-            | Yes | `Billing` | Cognitive Services 리소스의 엔드포인트 URI |
-            | No | `Eula` | `accept` |
+            | 예 | `Billing` | Cognitive Services 리소스의 엔드포인트 URI |
+            | 예 | `Eula` | `accept` |
 
         - **명령 재정의**: [ ]
     - **태그**:

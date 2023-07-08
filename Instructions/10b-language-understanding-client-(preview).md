@@ -1,14 +1,14 @@
 ---
 lab:
-  title: 대화 언어 이해 클라이언트 애플리케이션 만들기(미리 보기)
+  title: 대화형 Language Understanding 클라이언트 애플리케이션 만들기
   module: Module 5 - Creating Language Understanding Solutions
 ---
 
-# <a name="create-a-language-service-client-application"></a>언어 서비스 클라이언트 애플리케이션 만들기
+# 언어 서비스 클라이언트 애플리케이션 만들기
 
 언어용 Azure Cognitive Service의 대화 언어 이해 기능을 사용하면 클라이언트 앱이 사용자의 자연어 입력을 해석하고, 사용자 의도(달성하려는 것)를 예측하고, 의도를 적용해야 하는 엔터티를 식별하는 데 사용할 수 있는 대화 언어 모델을 정의할 수 있습니다.  REST 인터페이스를 통해 직접 또는 언어별 SDK(소프트웨어 개발 키트)를 통해 대화 언어 이해 모델을 사용하는 클라이언트 애플리케이션을 만들 수 있습니다.
 
-## <a name="clone-the-repository-for-this-course"></a>이 과정용 리포지토리 복제
+## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
@@ -22,7 +22,7 @@ lab:
 
     > **참고**: 빌드 및 디버그에 필요한 자산을 추가하라는 메시지가 표시되면 **나중에**를 선택합니다.
 
-## <a name="create-language-service-resources"></a>언어 서비스 리소스 만들기
+## 언어 서비스 리소스 만들기
 
 Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에서 사용할 수 있습니다. 그렇지 않은 경우에는 관련 지침에 따라 리소스를 만듭니다.
 
@@ -42,7 +42,7 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
 
 3. 리소스가 생성될 때까지 기다립니다. 리소스를 만든 리소스 그룹으로 이동하여 리소스를 확인할 수 있습니다.
 
-## <a name="import-train-and-publish-a-conversational-language-understanding-model"></a>대화 언어 이해 모델 가져오기, 학습 및 게시
+## 대화 언어 이해 모델 가져오기, 학습 및 게시
 
 이전 랩 또는 연습에서 만든 **Clock** 앱이 이미 있으면 이 연습에서 사용할 수 있습니다. 그렇지 않은 경우에는 다음 지침에 따라 해당 앱을 만듭니다.
 
@@ -52,25 +52,29 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
 
 3. **대화 언어 이해** 페이지를 엽니다.
 
-3. **&#65291;새 프로젝트 만들기** 옆에 있는 드롭다운 목록을 보고 **가져오기**를 선택합니다. **파일 선택**을 클릭한 다음, 이 연습의 랩 파일이 포함된 프로젝트 폴더의 **10b-clu-client-(preview)** 하위 폴더로 이동합니다. **Clock.json**을 선택하고, **열기**를 클릭한 다음, **완료**를 클릭합니다.
+4. ** 새 프로젝트 만들기&#65291;** 옆에 있는 **가져오기**를 선택합니다. **파일 선택**을 클릭한 다음, 이 연습의 랩 파일이 포함된 프로젝트 폴더의 **10b-clu-client-(preview)** 하위 폴더로 이동합니다. **Clock.json**을 선택하고, **열기**를 클릭한 다음, **완료**를 클릭합니다.
 
-4. 효과적인 언어 서비스 앱을 만들 수 있는 팁이 포함된 패널이 표시되면 해당 패널을 닫습니다.
+5. 효과적인 언어 서비스 앱을 만들 수 있는 팁이 포함된 패널이 표시되면 해당 패널을 닫습니다.
 
-5. Language Studio 포털 왼쪽에서 **모델 학습**을 선택하여 앱을 학습시킵니다. **학습 작업 시작**을 클릭하고, 모델 이름을 **Clock**으로 지정하고, 학습을 사용한 평가가 사용하도록 설정되어 있는지 확인합니다. 학습을 완료하는 데 몇 분 정도 걸릴 수 있습니다.
+6. Language Studio 포털 왼쪽에서 **학습 작업을** 선택하여 앱을 학습시킵니다. **학습 작업 시작을** 클릭하고 모델 이름을 **Clock**으로 지정하고 기본 학습 모드(Standar) 및 데이터 분할을 유지합니다. **학습**을 선택합니다. 학습을 완료하는 데 몇 분 정도 걸릴 수 있습니다.
 
     > **참고**: 모델 이름 **Clock**은 clock-client 코드(랩의 뒷부분에서 사용됨)로 하드 코딩되므로 이름은 설명된 대로 정확히 대소문자를 구분하고 철자를 표시합니다. 
 
-6. Language Studio 포털 왼쪽에서 **모델 배포**를 선택하고 **배포 추가**를 사용하여 **production**이라는 Clock 모델에 대한 배포를 만듭니다.
+7. Language Studio 포털 왼쪽에서 **모델 배포를** 선택하고 **배포 추가** 를 사용하여 **프로덕션**이라는 Clock 모델에 대한 배포를 만듭니다.
 
     > **참고**: 배포 이름 **production**은 clock-client 코드(랩의 뒷부분에서 사용됨)로 하드 코딩되므로 이름은 설명된 대로 정확히 대소문자를 구분하고 철자를 표시합니다. 
 
-7. 배포가 완료된 후 **production** 배포를 선택한 다음, **예측 URL 가져오기**를 클릭합니다. 클라이언트 애플리케이션은 배포된 모델을 사용하려면 엔드포인트 URL이 필요합니다.
+8. 클라이언트 애플리케이션은 배포된 모델을 사용하려면 **엔드포인트 URL** 및 **기본 키가** 필요합니다. 배포가 완료되면 해당 매개 변수를 얻으려면 에서 [https://portal.azure.com](https://portal.azure.com/?azure-portal=true)Azure Portal 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다. 검색 창에서 **언어** 를 검색하고 선택하여 *Cognitive Services|언어 서비스*.
 
-8. Language Studio 포털 왼쪽에서 **프로젝트 설정**을 선택하고 **기본 키**를 적어 둡니다. 클라이언트 애플리케이션은 배포된 모델을 사용하려면 기본 키가 필요합니다.
+9. 언어 서비스 리소스를 나열하고 해당 리소스를 선택합니다.
 
-9. 클라이언트 애플리케이션은 배포된 모델에 연결하고 인증을 받으려면 예측 URL 및 언어 서비스 키의 정보가 필요합니다.
+10. 왼쪽 메뉴의 *리소스 관리* 섹션에서 **키 및 엔드포인트를** 선택합니다.
 
-## <a name="prepare-to-use-the-language-service-sdk"></a>언어 서비스 SDK 사용 준비
+11. **KEY 1** 및 **엔드포인트**의 복사본을 만듭니다.
+
+12. 클라이언트 애플리케이션은 배포된 모델에 연결하고 인증하려면 예측 URL 엔드포인트 및 언어 서비스 키의 정보가 필요합니다.
+
+## 언어 서비스 SDK 사용 준비
 
 이 연습에서는 Clock 모델(게시된 대화 언어 이해 모델)을 사용하여 사용자 입력의 의도를 예측하고 적절하게 대응하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
@@ -102,7 +106,7 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
     구성 파일을 열고 포함된 구성 값을 업데이트하여 언어 리소스에 대한 **엔드포인트 URL** 및 **기본 키**를 포함합니다. 다음과 같이 Azure Portal 또는 Language Studio에서 필요한 값을 찾을 수 있습니다.
 
     - Azure Portal: 언어 리소스를 엽니다. **리소스 관리**에서 **키 및 엔드포인트**를 선택합니다. **KEY 1** 및 **엔드포인트** 값을 구성 설정 파일에 복사합니다.
-    - Language Studio: **Clock** 프로젝트를 엽니다. 언어 서비스 엔드포인트는 **모델 배포** 페이지의 **예측 URL 가져오기** 아래에서 찾을 수 있고 **기본 키**는 **프로젝트 설정** 페이지에서 찾을 수 있습니다. 예측 URL의 언어 서비스 엔드포인트 부분은 **.cognitiveservices.azure.com/** 로 끝납니다. 예: `https://ai102-langserv.cognitiveservices.azure.com/`
+    - Language Studio: **Clock** 프로젝트를 엽니다. 언어 서비스 엔드포인트는 **예측 URL 가져오기** 아래**의 모델 배포** 페이지에서 찾을 수 있으며 기본 **키**는 **프로젝트 설정** 페이지에서 찾을 수 있습니다. 예측 URL의 언어 서비스 엔드포인트 부분은 **.cognitiveservices.azure.com/** 로 끝납니다. 예: `https://ai102-langserv.cognitiveservices.azure.com/`
 
 4. **clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
@@ -125,10 +129,9 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
     # Import namespaces
     from azure.core.credentials import AzureKeyCredential
     from azure.ai.language.conversations import ConversationAnalysisClient
-    from azure.ai.language.conversations.models import ConversationAnalysisOptions
     ```
 
-## <a name="get-a-prediction-from-the-conversational-language-model"></a>대화 언어 모델에서 예측 가져오기
+## 대화 언어 모델에서 예측 가져오기
 
 이제 SDK를 사용하여 언어 이해 모델에서 예측을 가져오는 코드를 구현할 수 있습니다.
 
@@ -182,36 +185,47 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
 
     ```Python
     # Call the Language service model to get intent and entities
-    convInput = ConversationAnalysisOptions(
-        query = userText
-        )
-    
     cls_project = 'Clock'
     deployment_slot = 'production'
 
     with client:
-        result = client.analyze_conversations(
-            convInput, 
-            project_name=cls_project, 
-            deployment_name=deployment_slot
-            )
+        query = userText
+        result = client.analyze_conversation(
+            task={
+                "kind": "Conversation",
+                "analysisInput": {
+                    "conversationItem": {
+                        "participantId": "1",
+                        "id": "1",
+                        "modality": "text",
+                        "language": "en",
+                        "text": query
+                    },
+                    "isLoggingEnabled": False
+                },
+                "parameters": {
+                    "projectName": cls_project,
+                    "deploymentName": deployment_slot,
+                    "verbose": True
+                }
+            }
+        )
 
-    # list the prediction results
-    top_intent = result.prediction.top_intent
-    entities = result.prediction.entities
+    top_intent = result["result"]["prediction"]["topIntent"]
+    entities = result["result"]["prediction"]["entities"]
 
     print("view top intent:")
-    print("\ttop intent: {}".format(result.prediction.top_intent))
-    print("\tcategory: {}".format(result.prediction.intents[0].category))
-    print("\tconfidence score: {}\n".format(result.prediction.intents[0].confidence_score))
+    print("\ttop intent: {}".format(result["result"]["prediction"]["topIntent"]))
+    print("\tcategory: {}".format(result["result"]["prediction"]["intents"][0]["category"]))
+    print("\tconfidence score: {}\n".format(result["result"]["prediction"]["intents"][0]["confidenceScore"]))
 
     print("view entities:")
     for entity in entities:
-        print("\tcategory: {}".format(entity.category))
-        print("\ttext: {}".format(entity.text))
-        print("\tconfidence score: {}".format(entity.confidence_score))
+        print("\tcategory: {}".format(entity["category"]))
+        print("\ttext: {}".format(entity["text"]))
+        print("\tconfidence score: {}".format(entity["confidenceScore"]))
 
-    print("query: {}".format(result.query))
+    print("query: {}".format(result["result"]["query"]))
     ```
 
     언어 서비스 모델을 호출하면 예측/결과가 반환됩니다. 여기에는 상위(가장 가능성이 높은) 의도, 그리고 입력 발화에서 검색된 모든 엔터티가 포함됩니다. 이제 클라이언트 애플리케이션은 해당 예측을 사용하여 적절한 작업을 결정한 다음 수행해야 합니다.
@@ -308,9 +322,9 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
         if len(entities) > 0:
             # Check for a location entity
             for entity in entities:
-                if 'Location' == entity.category:
+                if 'Location' == entity["category"]:
                     # ML entities are strings, get the first one
-                    location = entity.text
+                    location = entity["text"]
         # Get the time for the specified location
         print(GetTime(location))
 
@@ -320,9 +334,9 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
         if len(entities) > 0:
             # Check for a Date entity
             for entity in entities:
-                if 'Date' == entity.category:
+                if 'Date' == entity["category"]:
                     # Regex entities are strings, get the first one
-                    date_string = entity.text
+                    date_string = entity["text"]
         # Get the day for the specified date
         print(GetDay(date_string))
 
@@ -332,9 +346,9 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
         if len(entities) > 0:
             # Check for a Weekday entity
             for entity in entities:
-                if 'Weekday' == entity.category:
+                if 'Weekday' == entity["category"]:
                 # List entities are lists
-                    day = entity.text
+                    day = entity["text"]
         # Get the date for the specified day
         print(GetDate(day))
 
@@ -381,6 +395,6 @@ Azure 구독에 언어 서비스 리소스가 이미 있는 경우 이 연습에
 
 6. 테스트를 완료한 후 *quit*을 입력합니다.
 
-## <a name="more-information"></a>자세한 정보
+## 자세한 정보
 
 언어 서비스 클라이언트 만들기에 대해 자세히 알아보려면 [개발자 설명서](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)를 참조하세요.

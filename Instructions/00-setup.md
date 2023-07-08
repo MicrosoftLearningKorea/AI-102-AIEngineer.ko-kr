@@ -22,7 +22,7 @@ Windows 10을 설치하고 모든 업데이트를 적용합니다.
 
 ### .NET Core SDK
 
-1. https://dotnet.microsoft.com/download 에서 다운로드 및 설치(런타임뿐만 아니라 .NET Core SDK 다운로드)
+1. 에서 다운로드하여 설치 https://dotnet.microsoft.com/download 합니다(런타임뿐만 아니라 .NET Core SDK 다운로드). 이 과정의 랩을 사용자 고유의 컴퓨터에서 실행하는 경우 .NET 6.0 및 .NET 3.1이 모두 설치되어 있어야 합니다.
 
 ### C++ 재배포 가능 패키지
 
